@@ -1,0 +1,131 @@
+<div class="card">
+    <div class="card-header">
+        <h5>Editar perfil</h5>
+    </div>
+    <div class="card-divider"></div>
+    <div class="card-body col-md-6">
+        <form [formGroup]="Formregistrar">
+            <div class="form-group">
+                <label>Nombre <strong class="text-danger">(*)</strong> </label>
+                <input type="text" formControlName="nombre_cliente"
+                    [class.is-invalid]="(Formregistrar.controls.nombre_cliente|isInvalid)" class="form-control"
+                    placeholder="Nombre del cliente">
+                <div class="invalid-feedback">
+                    <div *ngIf="Formregistrar.controls.nombre_cliente|hasError:'required'">
+                        {{ 'Campo Obligatorio' }}
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Apellidos <strong class="text-danger">(*)</strong> </label>
+                <input type="text" class="form-control" formControlName="apellidos_cliente"
+                    [class.is-invalid]="(Formregistrar.controls.apellidos_cliente|isInvalid)"
+                    placeholder="Apellidos del cliente">
+                <div class="invalid-feedback">
+                    <div *ngIf="Formregistrar.controls.apellidos_cliente|hasError:'required'">
+                        {{ 'Campo Obligatorio' }}
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Correo electronico <strong class="text-danger">(*)</strong> </label>
+                <input type="email" class="form-control" formControlName="e_mail_cliente"
+                    [class.is-invalid]="(Formregistrar.controls.e_mail_cliente|isInvalid)" placeholder="Ingresar email">
+                <div class="invalid-feedback">
+                    <div *ngIf="Formregistrar.controls.e_mail_cliente|hasError:'required'">
+                        {{ 'Campo Obligatorio' }}
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>N° de documento <strong>DNI</strong> <strong class="text-danger">(*)</strong>
+                </label>
+                <div class="row">
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" readonly formControlName="dni_cliente"
+                            placeholder="N° documento"
+                            [class.is-invalid]="(Formregistrar.controls.dni_cliente|isInvalid)">
+                        <div class="invalid-feedback">
+                            <div *ngIf="Formregistrar.controls.dni_cliente|hasError:'required'">
+                                {{ 'Campo Obligatorio' }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 p-0">
+                        <input type="text" class="form-control" readonly
+                            [class.is-invalid]="(Formregistrar.controls.dv_cliente|isInvalid)"
+                            formControlName="dv_cliente">
+                        <div class="invalid-feedback">
+                            <div *ngIf="Formregistrar.controls.dv_cliente|hasError:'required'">
+                                {{ 'Obligatorio' }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group mostrar_imagen d-none">
+                <div class=" col-sm-6 col-md-3">
+                    <div class="rings">
+                        <img class="img-responsive img-circle"
+                            src="../../../../../assets/images/img-digitoVerificador.png" alt="1" />
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="Departamento">Departamento <strong class="text-danger">(*)</strong></label>
+                <ng-select id="Departamento" (change)="Provincias($event)" [clearable]="false"
+                    [class.is-invalid]="(Formregistrar.controls.idDepartamento|isInvalid)"
+                    formControlName="idDepartamento">
+                    <ng-option value="">Seleccionar Departamento</ng-option>
+                    <ng-option *ngFor="let item of Departamento_cliente" [value]="item.idDepartamento">
+                        {{item.departamento}}</ng-option>
+                </ng-select>
+                <div class="invalid-feedback">
+                    <div *ngIf="Formregistrar.controls.idDepartamento|hasError:'required'">
+                        {{ 'Campo Obligatorio' }}
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Provincia <strong class="text-danger">(*)</strong></label>
+                <ng-select [clearable]="false" [class.is-invalid]="(Formregistrar.controls.idProvincia|isInvalid)"
+                    formControlName="idProvincia">
+                    <ng-option value="">Seleccionar Provincia</ng-option>
+                    <ng-option *ngFor="let item of Provincia_cliente" [value]="item.idProvincia">
+                        {{item.provincia}}</ng-option>
+                </ng-select>
+                <div class="invalid-feedback">
+                    <div *ngIf="Formregistrar.controls.idProvincia|hasError:'required'">
+                        {{ 'Campo Obligatorio' }}
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Dirección</label>
+                <input type="text" class="form-control" formControlName="direccion_cliente"
+                    placeholder="Direccion del cliente">
+            </div>
+            <div class="form-group">
+                <label>Telefono</label>
+                <input type="text" class="form-control" formControlName="telefono_cliente"
+                    placeholder="Telefono del cliente">
+
+            </div>
+            <div class="form-group">
+                <label>Celular <strong class="text-danger">(*)</strong> </label>
+                <input type="text" class="form-control"
+                    [class.is-invalid]="(Formregistrar.controls.celular_cliente|isInvalid)"
+                    formControlName="celular_cliente" placeholder="Celular del cliente">
+                <div class="invalid-feedback">
+                    <div *ngIf="Formregistrar.controls.celular_cliente|hasError:'required'">
+                        {{ 'Campo Obligatorio' }}
+                    </div>
+                </div>
+            </div>
+
+            <button type="button" (click)="ActualizarClienteRegistro()" 
+            [class.btn-loading]="registerInProgress"
+                class="btn btn-primary mt-2 mt-md-3 mt-lg-4">Actualizar</button>
+        </form>
+    </div>
+</div>

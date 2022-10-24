@@ -1,0 +1,471 @@
+<app-page-header [header]="'Verificar'" [breadcrumbs]="[
+    {label: 'Casa',          url: root.home()},
+    {label: 'Carro de compras', url: root.cart()},
+    {label: 'Verificar',      url: ''}
+]"></app-page-header>
+
+<div class="checkout block">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 mb-3">
+                <app-alert type="primary" size="lg">Soy Cliente? <a [routerLink]="root.login()">
+                        Haga clic aquí para ingresar</a></app-alert>
+            </div>
+
+            <div class="col-12 col-lg-6 col-xl-7">
+                <div class="card mb-lg-0">
+                    <div class="card-body" [formGroup]="Formregistrar">
+                        <h3 class="card-title">DETALLE DEL CLIENTE</h3>
+                        <div class="form-row">
+                            <div class="form-group col-md-10">
+                                <label for="checkout-first-name">Documento de Identidad <strong>DNI</strong> <strong
+                                        class="text-danger">(*)</strong></label>
+                                <input type="text" class="form-control" formControlName="dni_cliente"
+                                    [class.is-invalid]="(Formregistrar.controls.dni_cliente|isInvalid)"
+                                    id="checkout-first-name" placeholder="Documento de Identidad" [readonly]="cliente">
+                                <div class="invalid-feedback">
+                                    <div *ngIf="Formregistrar.controls.dni_cliente|hasError:'required'">
+                                        {{ 'Campo Obligatorio' }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-2">
+                                <label for="checkout-first-name">Buscar </label>
+                                <button [class.btn-loading]="buscardni" (click)="BuscarDni()" [disabled]="cliente"
+                                    class="btn btn-sm btn-success mt-1"><i class="fa fa-search"
+                                        aria-hidden="true"></i></button>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="checkout-first-name">Nombre del Cliente<strong class="text-danger">
+                                        (*)</strong></label>
+                                <input type="text" class="form-control" id="checkout-first-name"
+                                    [class.is-invalid]="(Formregistrar.controls.nombre_cliente|isInvalid)"
+                                    formControlName="nombre_cliente" placeholder="Nombre">
+                                <div class="invalid-feedback">
+                                    <div *ngIf="Formregistrar.controls.nombre_cliente|hasError:'required'">
+                                        {{ 'Campo Obligatorio' }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="checkout-last-name">Apellidos del Cliente<strong class="text-danger">
+                                        (*)</strong></label>
+                                <input type="text" class="form-control" id="checkout-last-name"
+                                    [class.is-invalid]="(Formregistrar.controls.apellidos_cliente|isInvalid)"
+                                    formControlName="apellidos_cliente" placeholder="Apellidos">
+                                <div class="invalid-feedback">
+                                    <div *ngIf="Formregistrar.controls.apellidos_cliente|hasError:'required'">
+                                        {{ 'Campo Obligatorio' }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="Departamento">Departamento <strong class="text-danger">(*)</strong></label>
+                            <ng-select id="Departamento" (change)="Provincias($event)" [clearable]="false"
+                                [class.is-invalid]="(Formregistrar.controls.idDepartamento|isInvalid)"
+                                formControlName="idDepartamento">
+                                <ng-option value="">Seleccionar Departamento</ng-option>
+                                <ng-option *ngFor="let item of Departamento_cliente" [value]="item.idDepartamento">
+                                    {{item.departamento}}</ng-option>
+                            </ng-select>
+                            <div class="invalid-feedback">
+                                <div *ngIf="Formregistrar.controls.idDepartamento|hasError:'required'">
+                                    {{ 'Campo Obligatorio' }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Provincia <strong class="text-danger">(*)</strong></label>
+                            <ng-select [clearable]="false"
+                                [class.is-invalid]="(Formregistrar.controls.idProvincia|isInvalid)"
+                                formControlName="idProvincia">
+                                <ng-option value="">Seleccionar Provincia</ng-option>
+                                <ng-option *ngFor="let item of Provincia_cliente" [value]="item.idProvincia">
+                                    {{item.provincia}}</ng-option>
+                            </ng-select>
+                            <div class="invalid-feedback">
+                                <div *ngIf="Formregistrar.controls.idProvincia|hasError:'required'">
+                                    {{ 'Campo Obligatorio' }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="checkout-street-address">Correo Electronico <strong
+                                    class="text-danger">(*)</strong> </label>
+                            <input type="text" class="form-control" id="checkout-street-address"
+                                [class.is-invalid]="(Formregistrar.controls.e_mail_cliente|isInvalid)"
+                                formControlName="e_mail_cliente" placeholder="Correo Electronico">
+                            <div class="invalid-feedback">
+                                <div *ngIf="Formregistrar.controls.e_mail_cliente|hasError:'required'">
+                                    {{ 'Campo Obligatorio' }}
+                                </div>
+                                <div *ngIf="Formregistrar.controls.e_mail_cliente|hasError:'email'">
+                                    {{ 'Email Invalido' }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="checkout-address">Dirección </label>
+                            <input type="text" class="form-control" id="checkout-address"
+                                formControlName="direccion_cliente">
+                        </div>
+                        <div class="form-group">
+                            <label for="checkout-city">Telefono</label>
+                            <input type="text" class="form-control" id="checkout-city"
+                                formControlName="telefono_cliente">
+                        </div>
+                        <div class="form-group">
+                            <label for="checkout-state">Celular <strong class="text-danger">(*)</strong></label>
+                            <input type="text" class="form-control" id="checkout-state"
+                                formControlName="celular_cliente"
+                                [class.is-invalid]="(Formregistrar.controls.celular_cliente|isInvalid)">
+                            <div class="invalid-feedback">
+                                <div *ngIf="Formregistrar.controls.celular_cliente|hasError:'required'">
+                                    {{ 'Campo Obligatorio' }}
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="form-group" *ngIf="!cliente">
+                            <div class="form-check">
+                                <span class="form-check-input input-check">
+                                    <span class="input-check__body">
+                                        <input class="input-check__input" formControlName="crearcuenta"
+                                            (change)="mostracontra()" type="checkbox" id="checkout-create-account">
+                                        <span class="input-check__box"></span>
+                                        <svg class="input-check__icon" width="9px" height="7px">
+                                            <use xlink:href="assets/images/sprite.svg#check-9x7"></use>
+                                        </svg>
+                                    </span>
+                                </span>
+                                <label class="form-check-label" for="checkout-create-account">¿Crear una cuenta?</label>
+                            </div>
+                        </div>
+                        <div  class="form-group d-none" #CrearCuenta>
+                            <div class="form-group">
+                                <label for="checkout-city">Contraseña <strong class="text-danger">(*)</strong></label>
+                                <input type="password" class="form-control"
+                                    [class.is-invalid]="(Formregistrar.controls.password|isInvalid)"
+                                    formControlName="password" placeholder="Contraseña">
+                                <div class="invalid-feedback">
+                                    <div *ngIf="Formregistrar.controls.password|hasError:'required'">
+                                        {{ 'Campo Obligatorio' }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="checkout-state">Repetir Contraseña <strong class="text-danger">(*)</strong>
+                                </label>
+                                <input type="password" class="form-control"
+                                    [class.is-invalid]="(Formregistrar.controls.confirmPassword|isInvalid)"
+                                    formControlName="confirmPassword" placeholder="Repetir Contraseña">
+                                <div class="invalid-feedback">
+                                    <div *ngIf="Formregistrar.controls.confirmPassword|hasError:'required'">
+                                        {{ 'Campo Obligatorio' }}
+                                    </div>
+                                    <div *ngIf="Formregistrar.controls.confirmPassword|hasError:'mustMatch'">
+                                        {{"No concide la contraseña" }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="card-divider"></div>
+                    <div class="card-body">
+                        <h3 class="card-title">Shipping Details</h3>
+
+                        <div class="form-group">
+                            <div class="form-check">
+                                <span class="form-check-input input-check">
+                                    <span class="input-check__body">
+                                        <input class="input-check__input" type="checkbox"
+                                            id="checkout-different-address">
+                                        <span class="input-check__box"></span>
+                                        <svg class="input-check__icon" width="9px" height="7px">
+                                            <use xlink:href="assets/images/sprite.svg#check-9x7"></use>
+                                        </svg>
+                                    </span>
+                                </span>
+                                <label class="form-check-label" for="checkout-different-address">Ship to a different
+                                    address?</label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="checkout-comment">Order notes <span class="text-muted">(Optional)</span></label>
+                            <textarea id="checkout-comment" class="form-control" rows="4"></textarea>
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+
+            <div class="col-12 col-lg-6 col-xl-5 mt-4 mt-lg-0">
+                <div class="card mb-0">
+                    <div class="card-body">
+                        <h3 class="card-title">Tu Pedido</h3>
+
+                        <table class="checkout__totals">
+                            <thead class="checkout__totals-header">
+                                <tr>
+                                    <th>Producto</th>
+                                    <th>Total</th>
+                                </tr>
+                            </thead>
+                            <tbody class="checkout__totals-products">
+                                <tr *ngFor="let item of cart.items$|async">
+                                    <td>{{ item.product.name }} × {{ item.quantity }}</td>
+                                    <td>{{ item.product.price * item.quantity|currencyFormat }}</td>
+                                </tr>
+                            </tbody>
+                            <tbody *ngIf="(cart.totals$|async)?.length" class="checkout__totals-subtotals">
+                                <tr>
+                                    <th>Subtotal</th>
+                                    <td>{{ cart.subtotal$|async|currencyFormat }}</td>
+                                </tr>
+                                <tr *ngFor="let total of cart.totals$|async">
+                                    <th>{{ total.title }}</th>
+                                    <td>{{ total.price|currencyFormat }}</td>
+                                </tr>
+                            </tbody>
+                            <tfoot class="checkout__totals-footer">
+                                <tr>
+                                    <th>Total</th>
+                                    <td>{{ cart.total$|async|currencyFormat }}</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+
+                        <div class="payment-methods" [formGroup]="Formregistrar">
+                            <ul class="payment-methods__list" #listaPago>
+                                <!-- <li class="payment-methods__item ">
+                                    <label class="payment-methods__item-header">
+                                        <span class="payment-methods__item-radio input-radio">
+                                            <span class="input-radio__body">
+                                                <input class="input-radio__input" name="checkout_payment_method"
+                                                    type="radio" checked>
+                                                <span class="input-radio__circle"></span>
+                                            </span>
+                                        </span>
+                                        <span class="payment-methods__item-title">Transferencia Bancaria Directa</span>
+                                    </label>
+                                    <div class="payment-methods__item-container">
+                                        <div class="payment-methods__item-description text-muted">
+                                            Realiza tu pago directamente en nuestra cuenta bancaria. Utilice su ID de pedido
+                                            como el pago
+                                            referencia. Su pedido no se enviará hasta que los fondos se hayan liquidado en
+                                            nuestra cuenta.
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="payment-methods__item">
+                                    <label class="payment-methods__item-header">
+                                        <span class="payment-methods__item-radio input-radio">
+                                            <span class="input-radio__body">
+                                                <input class="input-radio__input" name="checkout_payment_method"
+                                                    type="radio">
+                                                <span class="input-radio__circle"></span>
+                                            </span>
+                                        </span>
+                                        <span class="payment-methods__item-title">Check payments</span>
+                                    </label>
+                                    <div class="payment-methods__item-container">
+                                        <div class="payment-methods__item-description text-muted">
+                                            Envíe un cheque a Nombre de la tienda, Calle de la tienda, Ciudad de la tienda, Estado de la tienda /
+                                            Condado, Código postal de la tienda.
+                                        </div>
+                                    </div>
+                                </li> -->
+                                <li class="payment-methods__item payment-methods__item--active">
+                                    <label class="payment-methods__item-header">
+                                        <span class="payment-methods__item-radio input-radio">
+                                            <span class="input-radio__body">
+                                                <input class="input-radio__input" (change)="Pago1()"
+                                                formControlName="metodo_pago" [value]="1"  type="radio">
+                                                <span class="input-radio__circle"></span>
+                                            </span>
+                                        </span>
+                                        <span class="payment-methods__item-title">Contra Reembolso</span>
+                                    </label>
+                                    <div class="payment-methods__item-container">
+                                        <div class="payment-methods__item-description text-muted">
+                                            <img src="https://cdn-icons-png.flaticon.com/512/438/438051.png" alt=""
+                                                style="width:11%;"> Paga en efectivo al momento de la entrega.
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="payment-methods__item">
+                                    <label class="payment-methods__item-header">
+                                        <span class="payment-methods__item-radio input-radio">
+                                            <span class="input-radio__body">
+                                                <input class="input-radio__input" (change)="Pago2()"
+                                                formControlName="metodo_pago" [value]="2" type="radio">
+                                                <span class="input-radio__circle"></span>
+                                            </span>
+                                        </span>
+                                        <span class="payment-methods__item-title">Yape</span>
+                                    </label>
+                                    <div class="payment-methods__item-container">
+                                        <div class="payment-methods__item-description text-muted">
+                                            <img src="https://rc-consulting.org/wp-content/uploads/2020/07/ICONO-YAPE.png"
+                                                alt="Yape" style="width:11%;"> Pagar a través de Yape
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="checkout__agree form-group">
+                            <div class="form-check">
+                                <span class="form-check-input input-check">
+                                    <span class="input-check__body">
+                                        <input class="input-check__input" type="checkbox" id="checkout-terms">
+                                        <span class="input-check__box"></span>
+                                        <svg class="input-check__icon" width="9px" height="7px">
+                                            <use xlink:href="assets/images/sprite.svg#check-9x7"></use>
+                                        </svg>
+                                    </span>
+                                </span>
+                                <label class="form-check-label" for="checkout-terms">
+                                    He leído acepto los términos y
+                                    condiciones <a target="_blank" [routerLink]="root.terms()"> del sitio web</a>*
+                                </label>
+                            </div>
+                        </div>
+                        <button type="button" [class.btn-loading]="loginInProgress" (click)="EnviarDatosPaga(ElementoModal)"
+                            class="btn btn-primary btn-xl btn-block">Realizar Pedido</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<ng-template #ElementoModal>
+    <div class="modal-content">
+        <!-- <div class="modal-header">
+            <h4 id="dialog-static-name" class="modal-title pull-left">Metodo Pago Yape</h4>
+            <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef?.hide()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div> -->
+        <!-- <div class="modal-body"> -->
+        <tabset>
+            <tab heading="CODIGO QR" id="tab1" class="color-tab">
+                <div class="row d-flex justify-content-center p-2">
+                    <img class="rounded w-50" src="../../../../../assets/images/yape.jpeg" alt="">
+                </div>
+                <div class="row d-flex justify-content-center">
+                    <h5>MONTO A PAGAR CON YAPE</h5>
+                </div>
+                <div class="row d-flex justify-content-center">
+                    <h3>{{ cart.total$|async|currencyFormat}}</h3>
+                </div>
+                <div class="row d-flex justify-content-center px-3">
+                    <p class="text-center text-muted my-0">Escanee el código QR o agregue el numero de celular, cuando
+                        realicer el pago haga click en
+                        el botón siguiente.
+                    </p>
+                </div>
+                <div class="row d-flex justify-content-end p-4">
+                    <button class="btn-sm btn-danger mx-1" (click)="modalRef?.hide()">Volver</button>
+                    <button class="btn-sm btn-success color-yap mx-1"
+                        (click)="GuardarYape(ElementoModalSiguiente)">Siguiente</button>
+                </div>
+            </tab>
+            <tab heading="N° CELULAR" class="color-tab">
+                <div class="row d-flex justify-content-center p-2">
+                    <strong>Copiar Número</strong>
+                </div>
+                <div class="row d-flex justify-content-center p-2">
+                    <h2 class="color-border">980535377</h2>
+                </div>
+                <div class="row d-flex justify-content-center">
+                    <h5>MONTO A PAGAR CON YAPE</h5>
+                </div>
+                <div class="row d-flex justify-content-center">
+                    <h3>{{ cart.total$|async|currencyFormat}}</h3>
+                </div>
+                <div class="row d-flex justify-content-center px-3">
+                    <p class="text-center text-muted my-0">Agregue el número de celular a sus contactos y realice el
+                        pago.
+                    </p>
+                </div>
+                <div class="row d-flex justify-content-end p-4">
+                    <button class="btn-sm btn-danger mx-1" (click)="modalRef?.hide()">Volver</button>
+                    <button class="btn-sm btn-success color-yap mx-1"
+                        (click)="GuardarYape(ElementoModalSiguiente)">Siguiente</button>
+                </div>
+            </tab>
+        </tabset>
+
+        <!-- </div> -->
+        <!-- <div class="modal-footer">
+
+        </div> -->
+    </div>
+
+</ng-template>
+
+<ng-template #ElementoModalSiguiente>
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4 id="dialog-static-name" class="modal-title pull-left text-uppercase text-center">Adjunte la captura de
+                pantalla del comprobante de pago</h4>
+            <button type="button" class="close pull-right" aria-label="Close" (click)="modalRefSiguiente?.hide()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <ng-container *ngIf="saveInProgress; else elseTemplate">
+            <div class=" animated fadeIn p-4" align="center">
+                <p class="text-primary textoloading h3">Verificando Pedido...</p>
+                <div class="loader loader--style1" title="0">
+                    <svg version="1.1" id="loader-1" xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="100px" height="100px"
+                        viewBox="0 0 40 40" enable-background="new 0 0 40 40" xml:space="preserve">
+                        <path opacity="0.2" fill="#000"
+                            d="M20.201,5.169c-8.254,0-14.946,6.692-14.946,14.946c0,8.255,6.692,14.946,14.946,14.946
+                    s14.946-6.691,14.946-14.946C35.146,11.861,28.455,5.169,20.201,5.169z M20.201,31.749c-6.425,0-11.634-5.208-11.634-11.634
+                    c0-6.425,5.209-11.634,11.634-11.634c6.425,0,11.633,5.209,11.633,11.634C31.834,26.541,26.626,31.749,20.201,31.749z" />
+                        <path fill="#dc3545" d="M26.013,10.047l1.654-2.866c-2.198-1.272-4.743-2.012-7.466-2.012h0v3.312h0
+                    C22.32,8.481,24.301,9.057,26.013,10.047z">
+                            <animateTransform attributeType="xml" attributeName="transform" type="rotate" from="0 20 20"
+                                to="360 20 20" dur="0.5s" repeatCount="indefinite" />
+                        </path>
+                    </svg>
+                </div>
+            </div>
+        </ng-container>
+        <ng-template #elseTemplate>
+            <div class="modal-body">
+                <div class="row d-flex justify-content-center px-3" *ngIf="ImagenTemp">
+                    <img [src]="this.ImagenTemp" class="w-50" alt="">
+                </div>
+                <fieldset class="form-group pl-1 pr-1">
+                    <label for="basicInputFile">Subir Imagen<strong class="text-danger">(*)</strong></label>
+                    <div class="custom-file">
+                        <input type="file" (change)="DetectarImagen($event)" name="file" class="custom-file-input"
+                            accept="image/x-png,image/gif,image/jpeg" id="inputGroupFile02">
+                        <label class="custom-file-label inputGroupFile02"
+                            for="inputGroupFile02">{{nombreimagen}}</label>
+                    </div>
+                </fieldset>
+                <div class="row d-flex justify-content-center px-3">
+                    <p class="text-center text-muted my-0">El pedido se completará después de validar el comprobante de
+                        pago. Si no concide,
+                        se cancelará.
+                    </p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-sm btn-danger mx-1" (click)="modalRefSiguiente?.hide()">Cerrar</button>
+                <button class="btn-sm btn-success color-yap mx-1 " (click)="ProcesarPago()">Finalizar Comprar</button>
+            </div>
+        </ng-template>
+    </div>
+</ng-template>

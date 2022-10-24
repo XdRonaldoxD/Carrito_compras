@@ -1,0 +1,114 @@
+<div class="product-tabs" [ngClass]="{'product-tabs--layout--sidebar': withSidebar}">
+    <div class="product-tabs__list">
+        <a href="#tab-description" class="product-tabs__item"
+           [ngClass]="{'product-tabs__item--active': tab === 'description'}"
+           (click)="$event.preventDefault(); tab = 'description'">Descripción</a>
+
+        <a href="#tab-specification" class="product-tabs__item"
+           [ngClass]="{'product-tabs__item--active': tab === 'specification'}"
+           (click)="$event.preventDefault(); tab = 'specification'">Especificación</a>
+
+        <!-- <a href="#tab-reviews" class="product-tabs__item"
+           [ngClass]="{'product-tabs__item--active': tab === 'reviews'}"
+           (click)="$event.preventDefault(); tab = 'reviews'">Reviews</a> -->
+    </div>
+    <div class="product-tabs__content">
+
+        <div class="product-tabs__pane" id="tab-description" [ngClass]="{'product-tabs__pane--active': tab === 'description'}">
+            <div class="typography">
+                <h3>Descripción completa del producto</h3>
+                <p *ngIf="product" [outerHTML]="product.detallelargo_producto">
+                    
+                </p>
+            </div>
+        </div>
+
+        <!-- <div *ngIf="product" class="product-tabs__pane" id="tab-specification" [ngClass]="{'product-tabs__pane--active': tab === 'specification'}">
+            <div class="spec" >
+                <h3 class="spec__header">Especificación</h3>
+                <div *ngFor="let section of specification" class="spec__section">
+                    <h4 class="spec__section-title">{{ section.name }}</h4>
+                    <div *ngFor="let feature of section.features" class="spec__row">
+                        <div class="spec__name">{{ feature.name }}</div><div class="spec__value">{{ feature.value }}</div>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+
+        <div *ngIf="product" class="product-tabs__pane" id="tab-specification" [ngClass]="{'product-tabs__pane--active': tab === 'specification'}">
+            <div class="spec" *ngIf="product.especificaciones.length>0">
+                <h3 class="spec__header">Especificación</h3>
+                    <div *ngFor="let feature of product.especificaciones" class="spec__row">
+                        <div class="spec__name">{{ feature.name }}</div><div class="spec__value">{{ feature.value }}</div>
+                    </div>
+            </div>
+        </div>
+
+        
+
+        <div class="product-tabs__pane" id="tab-reviews" [ngClass]="{'product-tabs__pane--active': tab === 'reviews'}">
+            <div class="reviews-view">
+                <div class="reviews-view__list">
+                    <h3 class="reviews-view__header">Customer Reviews</h3>
+
+                    <div class="reviews-list">
+                        <ol class="reviews-list__content">
+                            <li *ngFor="let review of reviews" class="reviews-list__item">
+                                <div class="review">
+                                    <div class="review__avatar"><img [src]="review.avatar" alt=""></div>
+                                    <div class="review__content">
+                                        <div class="review__author">{{ review.author }}</div>
+                                        <div class="review__rating">
+                                            <app-rating [value]="review.rating"></app-rating>
+                                        </div>
+                                        <div class="review__text">{{ review.text }}</div>
+                                        <div class="review__date">{{ review.date }}</div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ol>
+                        <div class="reviews-list__pagination">
+                            <app-pagination [current]="1" [siblings]="2" [total]="10"></app-pagination>
+                        </div>
+                    </div>
+                </div>
+
+                <form class="reviews-view__form">
+                    <h3 class="reviews-view__header">Write A Review</h3>
+                    <div class="row">
+                        <div class="col-12 col-lg-9 col-xl-8">
+                            <div class="form-row">
+                                <div class="form-group col-md-4">
+                                    <label for="review-stars">Review Stars</label>
+                                    <select id="review-stars" class="form-control">
+                                        <option>5 Stars Rating</option>
+                                        <option>4 Stars Rating</option>
+                                        <option>3 Stars Rating</option>
+                                        <option>2 Stars Rating</option>
+                                        <option>1 Stars Rating</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="review-author">Your Name</label>
+                                    <input type="text" class="form-control" id="review-author" placeholder="Your Name">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="review-email">Email Address</label>
+                                    <input type="text" class="form-control" id="review-email" placeholder="Email Address">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="review-text">Your Review</label>
+                                <textarea class="form-control" id="review-text" rows="6"></textarea>
+                            </div>
+                            <div class="form-group mb-0">
+                                <button type="submit" class="btn btn-primary btn-lg">Post Your Review</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
