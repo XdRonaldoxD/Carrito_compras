@@ -1,0 +1,53 @@
+<div class="account-menu">
+    <ng-container *ngIf="!mostrardatos; else elseTemplate">
+        <form class="account-menu__form" [formGroup]="loginForm">
+            <div class="account-menu__form-title">Iniciar Sessión</div>
+            <div class="form-group">
+                <label for="header-signin-email" class="sr-only">Correo Electronico</label>
+                <input id="header-signin-email" type="email" class="form-control form-control-sm"
+                    placeholder="Correo electronico" formControlName="e_mail_cliente"
+                    [class.is-invalid]="(loginForm.controls.e_mail_cliente|isInvalid)">
+            </div>
+            <div class="form-group">
+                <label for="header-signin-password" class="sr-only">Contraseña</label>
+                <div class="account-menu__form-forgot">
+                    <input id="header-signin-password" type="password" class="form-control form-control-sm"
+                        placeholder="Contraseña" formControlName="password_usuario"
+                        [class.is-invalid]="(loginForm.controls.password_usuario|isInvalid)">
+                    <a href="" class="account-menu__form-forgot-link">Forgot?</a>
+                </div>
+            </div>
+            <div class="form-group account-menu__form-button">
+                <button type="button"
+                [class.btn-loading]="loginInProgress"
+                (click)="IngresarCliente()" class="btn btn-primary btn-sm">Ingresar</button>
+            </div>
+            <div class="account-menu__form-link"><a routerLink="/account/login" (click)="closeMenu.emit()">Crear una Cuenta</a></div>
+        </form>
+    </ng-container>
+    <ng-template #elseTemplate>
+        <a routerLink="/account/dashboard" class="account-menu__user" (click)="closeMenu.emit()">
+            <div class="account-menu__user-avatar">
+                <img src="assets/images/avatars/avatar-3.jpg" alt="">
+            </div>
+            <div class="account-menu__user-info">
+                <div class="account-menu__user-name">{{usuario?.nombre_cliente}} {{usuario?.apellidopaterno_cliente}} {{usuario?.apellidomaterno_cliente}} </div>
+                <div class="account-menu__user-email">{{usuario?.e_mail_cliente}}</div>
+            </div>
+        </a>
+        <div class="account-menu__divider"></div>
+        <ul class="account-menu__links">
+            <li><a routerLink="/account/profile" (click)="closeMenu.emit()">Editar Perfil</a></li>
+            <li><a routerLink="/account/orders" (click)="closeMenu.emit()">Historial de Pedido</a></li>
+            <li><a routerLink="/account/addresses" (click)="closeMenu.emit()">Direcciones</a></li>
+            <li><a routerLink="/account/password" (click)="closeMenu.emit()">Contraseña</a></li>
+            <li><a routerLink="/account/login" (click)="SalirSession()">Salir</a></li>
+        </ul>
+    </ng-template>
+
+
+
+
+
+
+</div>

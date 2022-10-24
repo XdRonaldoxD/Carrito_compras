@@ -1,0 +1,64 @@
+<div class="dashboard">
+    <div class="dashboard__profile card profile-card">
+        <div class="card-body profile-card__body">
+            <div class="profile-card__avatar">
+                <img src="./assets/images/avatars/avatar-3.jpg" alt="">
+            </div>
+            <div class="profile-card__name">{{cliente?.nombre_cliente}} {{cliente?.apellidopaterno_cliente}} {{cliente?.apellidomaterno_cliente}}</div>
+            <div class="profile-card__email">{{cliente?.e_mail_cliente}}</div>
+            <div class="profile-card__edit">
+                <a routerLink="../profile" class="btn btn-secondary btn-sm">Editar perfil</a>
+            </div>
+        </div>
+    </div>
+    <div class="dashboard__address card address-card address-card--featured">
+        <!-- <div class="address-card__badge" *ngIf="address.default">Default Address</div> -->
+        <div class="address-card__body">
+            <div class="address-card__name">{{ cliente?.nombre_cliente + ' ' + cliente?.apellidopaterno_cliente}}</div>
+            <div class="address-card__row">
+                {{ cliente?.direccion_cliente }}<br>
+                <!-- {{ address.postcode }}, {{ address.city }}<br>
+                {{ address.address }} -->
+            </div>
+            <div class="address-card__row">
+                <div class="address-card__row-title">Numero Celular</div>
+                <div class="address-card__row-content">{{ cliente?.celular_cliente }}</div>
+            </div>
+            <div class="address-card__row">
+                <div class="address-card__row-title">Email</div>
+                <div class="address-card__row-content">{{ cliente?.e_mail_cliente }}</div>
+            </div>
+            <div class="address-card__footer d-none">
+                <a routerLink="/account/profile">Editar dirección</a>
+            </div>
+        </div>
+    </div>
+    <div class="dashboard__orders card">
+        <div class="card-header">
+            <h5>Order Recientes</h5>
+        </div>
+        <div class="card-divider"></div>
+        <div class="card-table">
+            <div class="table-responsive-sm">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>N° Orden</th>
+                        <th>Fecha</th>
+                        <th>Estado</th>
+                        <th>Total</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let order of orders">
+                        <td><a href="">#{{ order.id }}</a></td>
+                        <td>{{ order.date }}</td>
+                        <td>{{ order.status }}</td>
+                        <td>{{ order.total|currencyFormat }} for {{ order.quantity }} item(s)</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,66 @@
+<div class="card">
+    <div class="card-header">
+        <h5>Historial de pedidos</h5>
+    </div>
+    <div class="col-md-8">
+        <div class="row  mb-3">
+            <div class="col-md-6">
+                <div class="top-nav-search">
+                    <!-- <input type="text" class="form-control " #myinput placeholder="Buscar pedido"
+                        [(ngModel)]="filtrarTabla"> -->
+                    <!-- <h5>{{ 'HEADER_ORDER_HISTORY'|translate }}</h5> -->
+                </div>
+            </div>
+            <div class="col-md-6 col-12">
+                <div class="row mt-3">
+                    <div class="col-md-3 ">
+                        <label>Mostrar:</label>
+                    </div>
+                    <div class="col-md-4 ">
+                        <select class="custom-select custom-select-sm" (change)="cambio($event.target)">
+                            <option value="5" selected>5</option>
+                            <option value="10">10</option>
+                            <option value="15">15</option>
+                            <option value="20">20</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <ng-container *ngIf="listarPedido.length>0">
+        <div class="card-divider"></div>
+        <div class="card-table">
+            <div class="table-responsive-sm">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>{{ "N° Pedido" }}</th>
+                            <th>{{ "Fecha" }}</th>
+                            <th>{{ 'ESTADO' }}</th>
+                            <th>{{ 'TOTAL' }}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr
+                            *ngFor="let order of listarPedido | paginate : { id:'pagination1', itemsPerPage: this.numrows, currentPage: pageActual }; let i = index ">
+                            <td>
+                                <a routerLink="/account/orders/{{order.id_pedido}}">
+                                    N° {{order.numero_pedido}}
+                                </a>
+                            </td>
+                            <td>{{ order.fechacreacion_pedido | date: 'short' }}</td>
+                            <td>{{ order.glosa_estado_pedido }}</td>
+                            <td>{{ order.valortotal_pedido |currencyFormat}} por {{order.cantidad_productos}} producto(s)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="card-divider"></div>
+        <div class="card-footer">
+            <pagination-controls id="pagination1" class="my-pagination" (pageChange)="pageActual = $event"
+                previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
+        </div>
+    </ng-container>
+</div>

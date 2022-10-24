@@ -1,0 +1,168 @@
+<div class="container container-footer">
+    <div class="row">
+        <div id="Smallchat">
+            <div class="Layout Layout-open Layout-expand Layout-right"
+                style="background-color: rgb(240 240 240);color: rgb(255, 255, 255);opacity: 5;border-radius: 10px;">
+                <div class="Messenger_messenger">
+                    <div class="Messenger_header" style="background-color: rgb(22, 46, 98); color: rgb(255, 255, 255);">
+                        <h4 class="Messenger_prompt">En que te puedo ayudar?</h4>
+                        <span class="chat_dismi_icon">
+                            <i class="fas fa-angle-double-down" aria-hidden="true"></i></span>
+                        <span (click)="CerrarConversacion()" class="chat_close_icon">
+                            <i class="fa fa-window-close" aria-hidden="true"></i></span>
+                    </div>
+                    <div class="Messenger_content d-none formwebsocket">
+                        <div class="Messages" >
+                                <div class="wc-message-groups" id="Messages" >
+                                    <div class="wc-message-group-content Messages_list"  style="margin-top: 0px;">
+ 
+                                    </div>
+                                </div>
+                        </div>
+                        <div class="Input Input-blank" [formGroup]="formwebsocket">
+                            <textarea [placeholder]="'Enviar un mensaje...' " formControlName="mensaje"
+                                [class.is-invalid]="formwebsocket.controls.mensaje|isInvalid" class="Input_field" (keydown)="EnviandoMensaje($event)"
+                                style="height: 20px;"></textarea>
+                       
+                            <ng-container *ngIf="!enviar_mensaje; else elseTemplate">
+                                <button class="Input_button Input_button-send" type="button"
+                                    (click)="EnviandoMensaje('true')">
+                                    <div class="Icon" style="width: 18px; height: 18px;">
+                                        <svg width="57px" height="54px" viewBox="1496 193 57 54" version="1.1"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            xmlns:xlink="http://www.w3.org/1999/xlink"
+                                            style="width: 18px; height: 18px;">
+                                            <g id="Group-9-Copy-3" stroke="none" stroke-width="1" fill="none"
+                                                fill-rule="evenodd"
+                                                transform="translate(1523.000000, 220.000000) rotate(-270.000000) translate(-1523.000000, -220.000000) translate(1499.000000, 193.000000)">
+                                                <path
+                                                    d="M5.42994667,44.5306122 L16.5955554,44.5306122 L21.049938,20.423658 C21.6518463,17.1661523 26.3121212,17.1441362 26.9447801,20.3958097 L31.6405465,44.5306122 L42.5313185,44.5306122 L23.9806326,7.0871633 L5.42994667,44.5306122 Z M22.0420732,48.0757124 C21.779222,49.4982538 20.5386331,50.5306122 19.0920112,50.5306122 L1.59009899,50.5306122 C-1.20169244,50.5306122 -2.87079654,47.7697069 -1.64625638,45.2980459 L20.8461928,-0.101616237 C22.1967178,-2.8275701 25.7710778,-2.81438868 27.1150723,-0.101616237 L49.6075215,45.2980459 C50.8414042,47.7885641 49.1422456,50.5306122 46.3613062,50.5306122 L29.1679835,50.5306122 C27.7320366,50.5306122 26.4974445,49.5130766 26.2232033,48.1035608 L24.0760553,37.0678766 L22.0420732,48.0757124 Z"
+                                                    id="sendicon" fill="#96AAB4" fill-rule="nonzero"></path>
+                                            </g>
+                                        </svg>
+                                    </div>
+                                </button>
+                            </ng-container>
+                            <ng-template #elseTemplate>
+                                <button class="Input_button Input_button-send" type="button">
+                                    <svg version="1.1" id="L4" xmlns="http://www.w3.org/2000/svg"
+                                        xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 100 100"
+                                        enable-background="new 0 0 0 0" xml:space="preserve">
+                                        <circle fill="#000000" stroke="none" cx="6" cy="50" r="6">
+                                            <animate attributeName="opacity" dur="1s" values="0;1;0"
+                                                repeatCount="indefinite" begin="0.1" />
+                                        </circle>
+                                        <circle fill="#000000" stroke="none" cx="26" cy="50" r="6">
+                                            <animate attributeName="opacity" dur="1s" values="0;1;0"
+                                                repeatCount="indefinite" begin="0.2" />
+                                        </circle>
+                                        <circle fill="#000000" stroke="none" cx="46" cy="50" r="6">
+                                            <animate attributeName="opacity" dur="1s" values="0;1;0"
+                                                repeatCount="indefinite" begin="0.3" />
+                                        </circle>
+                                    </svg>
+                                </button>
+                            </ng-template>
+                        </div>
+                    </div>
+                    <div class="Messenger_content row mt-1 formdatoscliente" [formGroup]="formdatoscliente">
+                        <div class="form-group">
+                            <div class="col-lg-12 col-12">
+                                <label class="text-black">Nombre <strong class="text-danger">(*)</strong></label>
+                                <input type="text" formControlName="nombre"
+                                    [class.is-invalid]="formdatoscliente.controls.nombre|isInvalid"
+                                    class="form-control f_color" placeholder="Nombre del cliente">
+                                <div class="invalid-feedback">
+                                    <div *ngIf="formdatoscliente.controls.nombre|hasError:'required'">
+                                        {{ 'Campo Obligatorio' }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-lg-12 col-12">
+                                <label class="text-black">Email <strong class="text-danger">(*)</strong></label>
+                                <input type="email" formControlName="correo"
+                                    [class.is-invalid]="formdatoscliente.controls.correo|isInvalid"
+                                    class="form-control f_color" placeholder="Correo del cliente">
+                                <div class="invalid-feedback">
+                                    <div *ngIf="formdatoscliente.controls.correo|hasError:'required'">
+                                        {{ 'Campo Obligatorio' }}
+                                    </div>
+                                    <div *ngIf="formdatoscliente.controls.correo|hasError:'email'">
+                                        {{ 'Error el formato email.' }}
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-lg-12 col-12">
+                                <label class="text-black">Telefono</label>
+                                <input type="email" formControlName="telefono"
+                                    [class.is-invalid]="formdatoscliente.controls.telefono|isInvalid"
+                                    class="form-control f_color" placeholder="Telefono del cliente">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-lg-12 col-12">
+                                <button type="button" (click)="EnviandoDatosCliente()"
+                                    class="btn btn-sm btn-danger">Enviar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--===============CHAT ON BUTTON STRART===============-->
+            <div class="chat_on"> <span class="chat_on_icon"><i class="fa fa-comments" aria-hidden="true"></i></span>
+            </div>
+            <!--===============CHAT ON BUTTON END===============-->
+        </div>
+    </div>
+</div>
+<div class="site-footer">
+    <div class="container">
+        <div class="site-footer__widgets">
+            <div class="row">
+                <div class="col-12 col-md-6 col-lg-4">
+                    <app-footer-contacts></app-footer-contacts>
+                </div>
+                <div class="col-6 col-md-3 col-lg-2">
+                    <app-footer-links header="Información" [links]="[
+                        {label: 'Sobre Nosotros',             url: '/site/about-us'},
+                        {label: 'Información de entrega', url: '/site/terms'},
+                        {label: 'Política de privacidad',       url: '/site/terms'},
+                        {label: 'Brands',               url: ''},
+                        {label: 'Contactanos',           url: '/site/contact-us'},
+                        {label: 'Returns',              url: ''},
+                        {label: 'Site Map',             url: ''}
+                    ]"></app-footer-links>
+                </div>
+                <div class="col-6 col-md-3 col-lg-2">
+                    <app-footer-links header="Mi cuenta" [links]="[
+                        {label: 'Store Location', url: ''},
+                        {label: 'Historial de pedidos',  url: ''},
+                        {label: 'Wish List',      url: '/shop/wishlist'},
+                        {label: 'Newsletter',     url: ''},
+                        {label: 'Specials',       url: ''},
+                        {label: 'Gift Cards',     url: ''},
+                        {label: 'Affiliate',      url: ''}
+                    ]"></app-footer-links>
+                </div>
+                <div class="col-12 col-md-12 col-lg-4">
+                    <app-footer-newsletter class="site-footer__widget"></app-footer-newsletter>
+                </div>
+            </div>
+        </div>
+
+        <!-- <div class="site-footer__bottom">
+            <div class="site-footer__copyright">
+                Powered by <a href="https://angular.io/" target="_blank">Angular</a> — Design by <a [href]="theme.author.profile_url" target="_blank">{{ theme.author.name }}</a>
+            </div>
+            <div class="site-footer__payments">
+                <img src="assets/images/payments.png" alt="">
+            </div>
+        </div> -->
+    </div>
+    <app-totop></app-totop>
+</div>
