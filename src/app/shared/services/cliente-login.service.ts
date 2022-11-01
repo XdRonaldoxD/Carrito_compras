@@ -173,8 +173,10 @@ export class ClienteLoginService {
     formData.append('mensaje_texto', message);
     formData.append('cliente_identificado', cliente_identificado);
     formData.append('conversacion', JSON.stringify(mensaje_global));
-
-    return this.httpCliente.post(`${this.api}Apicontroller=Pusher&action=ChatBoxApi`, formData);
+    const headers = new HttpHeaders({
+      Authorization: this.token
+    });
+    return this.httpCliente.post(`${this.api}Apicontroller=Pusher&action=ChatBoxApi`, formData, { headers: headers });
   }
 
   saveUUID(cliente_identificado: string) {
@@ -204,13 +206,16 @@ export class ClienteLoginService {
     const headers = new HttpHeaders({
       Authorization: this.token
     });
-    return this.httpCliente.post(`${this.api}Apicontroller=Pusher&action=ChatBoxDatoClienteApi`, formData);
+    return this.httpCliente.post(`${this.api}Apicontroller=Pusher&action=ChatBoxDatoClienteApi`, formData, { headers: headers });
   }
 
   ClienteDesconetadoChatbox(cliente_identificado: string): Observable<any> {
     const formData = new FormData();
     formData.append('cliente_identificado', cliente_identificado);
-    return this.httpCliente.post(`${this.api}Apicontroller=Pusher&action=ChatBoxDatoClienteDesconectadoApi`, formData);
+    const headers = new HttpHeaders({
+      Authorization: this.token
+    });
+    return this.httpCliente.post(`${this.api}Apicontroller=Pusher&action=ChatBoxDatoClienteDesconectadoApi`, formData, { headers: headers });
   }
 
   Traernombre_cliente(): Observable<any> {
