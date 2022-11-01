@@ -69,6 +69,9 @@ export class SearchComponent implements OnChanges, OnInit, OnDestroy {
 
     get inputElement(): HTMLElement { return this.inputElementRef.nativeElement; }
 
+
+    contador_texto: any;
+
     constructor(
         @Inject(DOCUMENT) private document: Document,
         private fb: FormBuilder,
@@ -108,12 +111,18 @@ export class SearchComponent implements OnChanges, OnInit, OnDestroy {
                 //     return this.shop.getSuggestions(query, 5, categorySlug);
                 // }
                 if (query) {
-                    this.producto_servicio.FiltrarProductoCategoria(this.form.value.category,query).subscribe(products=>{
-                        this.hasSuggestions = products.length > 0;
-                        if (products.length > 0) {
-                            this.suggestedProducts = products;
-                        }
-                    });
+                    clearTimeout(this.contador_texto);
+                    this.contador_texto = setTimeout(() => {
+                        this.producto_servicio.FiltrarProductoCategoria(this.form.value.category,query)
+                        .pipe(takeUntil(this.destroy$))
+                        .subscribe(products=>{
+                            this.hasSuggestions = products.length > 0;
+                            if (products.length > 0) {
+                                this.suggestedProducts = products;
+                            }
+                        });
+                    }, 700);
+
                 }else{
                     this.hasSuggestions = false;
 

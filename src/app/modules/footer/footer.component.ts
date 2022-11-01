@@ -76,8 +76,8 @@ export class FooterComponent implements OnInit {
     }
 
     webSocketPhp() {
-        Pusher.logToConsole = false;
-        const pusher = new Pusher('5fd4b9d2fc8f70b057a0', {
+        Pusher.logToConsole = true;
+        const pusher = new Pusher('0900f1535d671035b532', {
             cluster: 'us2'
         });
         const channel = pusher.subscribe('ChatboxWoocommerce');
