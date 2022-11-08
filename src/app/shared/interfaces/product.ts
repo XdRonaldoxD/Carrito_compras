@@ -18,6 +18,7 @@ export interface ProductAttributeValue {
     name: string;
     slug: string;
     hexadecimal?:string,
+    id_producto_color?:any,
     customFields: CustomFields;
 }
 
@@ -34,7 +35,7 @@ export interface Product {
     slug: string;
     name: string;
     sku: string;
-    stock?:number;
+    stock?:any;
     descripcion?:string,
     detallelargo_producto?:string,
     price: number;

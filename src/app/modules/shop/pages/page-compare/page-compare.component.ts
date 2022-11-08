@@ -59,10 +59,11 @@ export class PageCompareComponent implements OnInit, OnDestroy {
     }
 
     addToCart(product: Product): void {
+       
         if (this.addedToCartProducts.includes(product)) {
             return;
         }
-
+        alert("aca");
         this.addedToCartProducts.push(product);
         this.cart.add(product, 1).subscribe({
             complete: () => {

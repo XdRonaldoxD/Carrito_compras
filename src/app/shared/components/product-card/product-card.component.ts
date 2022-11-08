@@ -58,9 +58,9 @@ export class ProductCardComponent implements OnInit, OnDestroy, OnChanges {
         if (this.addingToCart) {
             return;
         }
-
+        console.log(this.product);
         this.addingToCart = true;
-        this.cart.add(this.product, 1).subscribe({
+        this.cart.add(this.product, 1,[],this.product.attributes[0].values[0].id_producto_color,this.product.atributo_producto[0].id_atributo_producto).subscribe({
             complete: () => {
                 this.addingToCart = false;
                 this.cd.markForCheck();

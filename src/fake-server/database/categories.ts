@@ -254,7 +254,7 @@ const shopCategoriesDef: CategoryDef[] = [
 ];
 const blogCategoriesDef: CategoryDef[] = [
     {
-        name: 'Latest News',
+        name: 'Nuevas Noticias',
         slug: 'latest-news',
     },
     {
