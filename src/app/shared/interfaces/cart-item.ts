@@ -7,4 +7,7 @@ export interface CartItem {
         value: string;
     }[];
     quantity: number;
+    id_producto_color: any;
+    id_atributo_producto: any;
+    atributo_producto:any;
 }

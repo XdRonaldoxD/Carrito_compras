@@ -8,14 +8,14 @@
         <!-- .product__info -->
         <div class="product__info">
             <div class="product__wishlist-compare">
-                <button type="button" class="btn btn-sm btn-light btn-svg-icon" data-toggle="tooltip" data-placement="right" title="Wishlist"
-                        appClick (click)="addToWishlist()"
-                        [ngClass]="{'btn-loading': addingToWishlist}">
+                <button type="button" class="btn btn-sm btn-light btn-svg-icon" data-toggle="tooltip"
+                    data-placement="right" title="Wishlist" appClick (click)="addToWishlist()"
+                    [ngClass]="{'btn-loading': addingToWishlist}">
                     <app-icon name="wishlist-16" size="16"></app-icon>
                 </button>
-                <button type="button" class="btn btn-sm btn-light btn-svg-icon" data-toggle="tooltip" data-placement="right" title="Compare"
-                        appClick (click)="addToCompare()"
-                        [ngClass]="{'btn-loading': addingToCompare}">
+                <button type="button" class="btn btn-sm btn-light btn-svg-icon" data-toggle="tooltip"
+                    data-placement="right" title="Compare" appClick (click)="addToCompare()"
+                    [ngClass]="{'btn-loading': addingToCompare}">
                     <app-icon name="compare-16" size="16"></app-icon>
                 </button>
             </div>
@@ -29,7 +29,7 @@
                 </div>
             </div> -->
             <div class="product__description" [outerHTML]="product.descripcion">
-                
+
             </div>
             <!--clase:product__features -->
             <ul class="product__description" *ngIf="product.especificaciones.length>0">
@@ -45,7 +45,15 @@
         <!-- .product__sidebar -->
         <div class="product__sidebar">
             <div class="product__availability">
-                Disponibilidad: <span class="text-success">In Stock</span>
+                Disponibilidad:
+                <ng-container *ngIf="product.stock>0; else elseTemplate">
+                    <span class="text-success">Con Stock</span>
+                </ng-container>
+                <ng-template #elseTemplate>
+                    <span class="text-danger">Sin Stock</span>
+                </ng-template>
+
+
             </div>
 
             <div class="product__prices">
@@ -64,12 +72,13 @@
                     <div class="input-radio-color">
                         <div class="input-radio-color__list">
                             <ng-container *ngFor="let item of product.attributes[0].values">
-                                <label class="input-radio-color__item input-radio-color__item--white" style='color:{{item.hexadecimal}}' data-toggle="tooltip" title="{{item.name}}">
-                                    <input type="radio" name="color">
+                                <label class="input-radio-color__item input-radio-color__item--white"
+                                    style="color:{{item.hexadecimal}}" data-toggle="tooltip" title="{{item.name}}">
+                                    <input [value]="item.id_producto_color" [(ngModel)]="id_producto_color" type="radio" name="color">
                                     <span></span>
                                 </label>
                             </ng-container>
-                            
+
                             <!-- <label class="input-radio-color__item input-radio-color__item--white" style="color: #fff;" data-toggle="tooltip" title="White">
                                 <input type="radio" name="color">
                                 <span></span>
@@ -94,22 +103,24 @@
                     <div class="input-radio-label">
                         <div class="input-radio-label__list">
                             <label *ngFor="let item of product.atributo_producto">
-                                <input type="radio" name="material" [value]="item.id_atributo_producto">
+                                <input [(ngModel)]="id_atributo_producto" type="radio" name="material" [value]="item.id_atributo_producto">
                                 <span>{{item.glosa_atributo}}</span>
                             </label>
                         </div>
                     </div>
                 </div>
-                <div class="form-group product__option">
+
+                <div class="form-group product__option" *ngIf="product.stock>0">
                     <label class="product__option-label">Cantidad</label>
                     <div class="product__actions">
                         <div class="product__actions-item">
-                            <app-input-number aria-label="Quantity" class="product__quantity" size="lg" [min]="1" [formControl]="quantity"></app-input-number>
+                            <app-input-number aria-label="Quantity" class="product__quantity" size="lg" [min]="1"
+                                [formControl]="quantity"></app-input-number>
                         </div>
                         <div class="product__actions-item product__actions-item--addtocart">
                             <button type="button" class="btn btn-primary btn-lg"
-                                    [ngClass]="{'btn-loading': addingToCart}"
-                                    appClick (click)="addToCart()">Añadir a la cesta</button>
+                                [ngClass]="{'btn-loading': addingToCart}" appClick (click)="addToCart()">Añadir a la
+                                cesta</button>
                         </div>
                         <!-- <div class="product__actions-item product__actions-item--wishlist">
                             <button type="button" class="btn btn-secondary btn-svg-icon btn-lg" data-toggle="tooltip" title="Wishlist"
@@ -140,13 +151,10 @@
                 </div>
             </div> -->
 
-            <app-share-buttons
-                class="product__share-buttons"
+            <app-share-buttons class="product__share-buttons"
                 [buttons]="['facebook', {type: 'twitter', label: 'Tweet'}, 'pinterest']"
-                [pageUrl]="root.product(product)|absoluteUrl:'angular'"
-                [pageTitle]="product.name"
-                [pageImage]="product.images[0]|absoluteUrl:'html'"
-            ></app-share-buttons>
+                [pageUrl]="root.product(product)|absoluteUrl:'angular'" [pageTitle]="product.name"
+                [pageImage]="product.images[0]|absoluteUrl:'html'"></app-share-buttons>
         </div>
     </div>
 </div>

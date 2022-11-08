@@ -8,7 +8,7 @@ import { isPlatformBrowser } from '@angular/common';
 interface CartTotal {
     title: string;
     price: number;
-    type: 'shipping'|'fee'|'tax'|'other';
+    type: 'shipping' | 'fee' | 'tax' | 'other';
 }
 
 interface CartData {
@@ -17,6 +17,8 @@ interface CartData {
     subtotal: number;
     totals: CartTotal[];
     total: number;
+    id_producto_color: any;
+    id_atributo_producto: any;
 }
 
 @Injectable({
@@ -28,7 +30,9 @@ export class CartService {
         quantity: 0,
         subtotal: 0,
         totals: [],
-        total: 0
+        total: 0,
+        id_producto_color: [],
+        id_atributo_producto: []
     };
 
     private itemsSubject$: BehaviorSubject<CartItem[]> = new BehaviorSubject(this.data.items);
@@ -64,16 +68,14 @@ export class CartService {
         }
     }
 
-    add(product: Product, quantity: number, options: {name: string; value: string}[] = []): Observable<CartItem> {
+    add(product: Product, quantity: number, options: { name: string; value: string }[] = [], id_producto_color: any = null, id_atributo_producto: any = null): Observable<any> {
         // timer only for demo
         return timer(1000).pipe(map(() => {
             this.onAddingSubject$.next(product);
-
-            let item = this.items.find(eachItem => {
-                if (eachItem.product.id !== product.id || eachItem.options.length !== options.length) {
+            let item: any = this.items.find(eachItem => {
+                if (eachItem.product.id !== product.id) {
                     return false;
                 }
-
                 if (eachItem.options.length) {
                     for (const option of options) {
                         if (!eachItem.options.find(itemOption => itemOption.name === option.name && itemOption.value === option.value)) {
@@ -81,15 +83,34 @@ export class CartService {
                         }
                     }
                 }
-
                 return true;
             });
-
             if (item) {
                 item.quantity += quantity;
-            } else {
-                item = {product, quantity, options};
+                let mismo_atributo = false;
+                item.atributo_producto.forEach((element: any) => {
+                    if (element.id_producto_color === id_producto_color && element.id_atributo_producto === id_atributo_producto) {
+                        element.cantidad += quantity;
+                        mismo_atributo = true
+                    }
+                });
+                if (!mismo_atributo) {
+                    let atributo_producto = {
+                        id_producto_color: id_producto_color,
+                        id_atributo_producto: id_atributo_producto,
+                        cantidad: quantity
+                    }
+                    item.atributo_producto.push(atributo_producto)
+                }
 
+            } else {
+                const atributo_producto = [{
+                    id_producto_color: id_producto_color,
+                    id_atributo_producto: id_atributo_producto,
+                    cantidad: quantity
+                }];
+                
+                item = { product, quantity, options, atributo_producto };
                 this.data.items.push(item);
             }
 
@@ -100,7 +121,7 @@ export class CartService {
         }));
     }
 
-    update(updates: {item: CartItem, quantity: number}[]): Observable<void> {
+    update(updates: { item: CartItem, quantity: number }[]): Observable<void> {
         // timer only for demo
         return timer(1000).pipe(map(() => {
             updates.forEach(update => {
@@ -134,11 +155,11 @@ export class CartService {
             quantity += item.quantity;
             subtotal += item.product.price * item.quantity;
         });
-        
-        let base= subtotal / 1.18;
-        base=parseFloat(base.toFixed(2));
+
+        let base = subtotal / 1.18;
+        base = parseFloat(base.toFixed(2));
         console.log(base);
-        let igv=subtotal- base;
+        let igv = subtotal - base;
         const totals: CartTotal[] = [];
 
         totals.push({
@@ -151,7 +172,7 @@ export class CartService {
             price: igv,
             type: 'tax'
         });
-        subtotal=subtotal - igv;
+        subtotal = subtotal - igv;
         const total = subtotal + totals.reduce((acc, eachTotal) => acc + eachTotal.price, 0);
 
         this.data.quantity = quantity;

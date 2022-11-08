@@ -21,30 +21,57 @@
             <div class="dropcart__products-list">
                 <div *ngFor="let item of cart.items$|async" class="dropcart__product">
                     <div class="dropcart__product-image product-image">
-                        <a
-                            *ngIf="item.product.images?.length"
-                            class="product-image__body"
-                            [routerLink]="root.product(item.product)"
-                            (click)="closeMenu.emit()"
-                        >
+                        <a *ngIf="item.product.images?.length" class="product-image__body"
+                            [routerLink]="root.product(item.product)" (click)="closeMenu.emit()">
                             <img class="product-image__img" [src]="item.product.images[0]" alt="">
                         </a>
                     </div>
                     <div class="dropcart__product-info">
                         <div class="dropcart__product-name">
-                            <a [routerLink]="root.product(item.product)" (click)="closeMenu.emit()">{{ item.product.name }}</a>
+                            <a [routerLink]="root.product(item.product)" (click)="closeMenu.emit()">{{ item.product.name
+                                }}</a>
                         </div>
 
                         <ul *ngIf="item.options.length" class="dropcart__product-options">
                             <li *ngFor="let option of item.options">{{ option.name }}: {{ option.value }}</li>
                         </ul>
+                        <table class="table">
+                            <thead>
+                                <ng-container *ngFor="let atributo of item.atributo_producto">
+                                    <tr>
+                                        <td style="padding: 0px 1rem;">{{ atributo.cantidad }}</td>
+                                        <td style="padding: 0px 1rem;text-align: center;">
+                                            <ng-container *ngFor="let color of item.product.attributes[0].values">
+                                                <ng-container *ngIf="color.id_producto_color==atributo.id_producto_color">
+                                                    <span class="dropcart__product-price"
+                                                    style="padding: 0px 1rem;background-color: {{color.hexadecimal}};color: white;border-radius: 15px;border:1px solid #c1c1c1;text-shadow: 2px 0 #000;"
+                                                    >{{color.name}}</span>
+                                                </ng-container>
+                                            </ng-container>
+                                        </td>
+                                        <td style="padding: 0px 1rem;">
+                                            <ng-container
+                                                *ngFor="let atributo_producto of item.product.atributo_producto">
+                                                <ng-container
+                                                    *ngIf="atributo_producto.id_atributo_producto==atributo.id_atributo_producto">
+                                                    <span
+                                                        class="dropcart__product-price">{{atributo_producto.glosa_atributo}}</span>
+                                                </ng-container>
+                                            </ng-container>
+                                        </td>
+                                    </tr>
+                                </ng-container>
+                            </thead>
+                        </table>
+
                         <div class="dropcart__product-meta">
                             <span class="dropcart__product-quantity">{{ item.quantity }}</span> ×
                             <span class="dropcart__product-price">{{ item.product.price|currencyFormat }}</span>
                         </div>
                     </div>
 
-                    <button type="button" class="dropcart__product-remove btn btn-light btn-sm btn-svg-icon" (click)="remove(item)" [ngClass]="{'btn-loading': removedItems.includes(item)}">
+                    <button type="button" class="dropcart__product-remove btn btn-light btn-sm btn-svg-icon"
+                        (click)="remove(item)" [ngClass]="{'btn-loading': removedItems.includes(item)}">
                         <app-icon name="cross-10" size="10"></app-icon>
                     </button>
                 </div>
@@ -58,7 +85,7 @@
                     </tr>
                     <tr *ngFor="let total of cart.totals$|async">
                         <th>{{ total.title }}</th>
-                        <td>{{ total.price|currencyFormat  }}</td>
+                        <td>{{ total.price|currencyFormat }}</td>
                     </tr>
                     <tr>
                         <th>Total</th>
