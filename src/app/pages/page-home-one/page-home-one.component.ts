@@ -34,7 +34,9 @@ export class PageHomeOneComponent implements OnInit, OnDestroy {
     columnSpecialOffers$!: Observable<Product[]>;
     columnBestsellers$!: Observable<Product[]>;
 
+    //PROMOCIONES-------------
     posts = posts;
+    //--------------------------
 
     featuredProducts!: ProductsCarouselData;
     latestProducts!: ProductsCarouselData;
@@ -89,7 +91,6 @@ export class PageHomeOneComponent implements OnInit, OnDestroy {
                 // },
             ],
         };
-        console.log(this.featuredProducts);
         this.groupChange(this.featuredProducts, this.featuredProducts.groups[0]);
 
         this.latestProducts = {

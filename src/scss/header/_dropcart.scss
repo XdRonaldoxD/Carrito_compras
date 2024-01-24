@@ -122,7 +122,7 @@ $local-transition-duration: .3s;
 .dropcart--style--dropdown {
     box-shadow: $dropcart-shadow;
     background: $dropcart-bg;
-    width: 320px;
+    width: 28rem;
 
     // without it IE renders a blurred menu
     @include only-ie() {

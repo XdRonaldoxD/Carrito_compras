@@ -105,12 +105,8 @@ export class SearchComponent implements OnChanges, OnInit, OnDestroy {
             throttleTime(250, asyncScheduler, {leading: true, trailing: true}),
             map(query => query.trim()),
             switchMap(query => {
-                // if (query) {
-                //     const categorySlug = this.form.value.category !== 'all' ? this.form.value.category : null;
-
-                //     return this.shop.getSuggestions(query, 5, categorySlug);
-                // }
-                if (query) {
+                this.suggestedProducts=[];
+                if (query && query.length>3) {
                     clearTimeout(this.contador_texto);
                     this.contador_texto = setTimeout(() => {
                         this.producto_servicio.FiltrarProductoCategoria(this.form.value.category,query)
@@ -121,13 +117,10 @@ export class SearchComponent implements OnChanges, OnInit, OnDestroy {
                                 this.suggestedProducts = products;
                             }
                         });
-                    }, 700);
-
+                    }, 500);
                 }else{
                     this.hasSuggestions = false;
-
                 }
-
                 return of([]);
             }),
             takeUntil(this.destroy$),

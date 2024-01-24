@@ -8,6 +8,7 @@ import { Product } from '../../shared/interfaces/product';
 import { Category } from '../../shared/interfaces/category';
 import { BlockHeaderGroup } from '../../shared/interfaces/block-header-group';
 import { ProductosService } from '../../shared/services/productos.service';
+import { ToastrService } from 'ngx-toastr';
 
 interface ProductsCarouselGroup extends BlockHeaderGroup {
     products$: Observable<Product[]>;
@@ -35,32 +36,25 @@ export class PageHomeTwoComponent implements OnInit, OnDestroy {
     columnSpecialOffers$!: Observable<Product[]>;
     columnBestsellers$!: Observable<Product[]>;
 
-    posts = posts;
+    posts = [];
 
     featuredProducts!: ProductsCarouselData;
     latestProducts!: ProductsCarouselData;
+    Unsuscribe: any = new Subject();
+
+    slides: any = [];
 
     constructor(
         private shop: ShopService,
-        private ProductoService: ProductosService
+        private ProductoService: ProductosService,
+        private toastr: ToastrService
     ) { }
 
     ngOnInit(): void {
-
-
-
-        // this.bestsellers$ = this.shop.getBestsellers(7);
-        // console.log("lo mas vendidos",this.bestsellers$)
-        // return;
         this.brands$ = this.shop.getPopularBrands();
-        this.popularCategories$ = this.shop.getCategoriesBySlug([
-            'power-tools',
-            'hand-tools',
-            'machine-tools',
-            'power-machinery',
-            'measurement',
-            'clothes-and-ppe',
-        ], 1);
+        this.popularCategories$ = this.ProductoService.CategoriaPopulares();
+
+
         this.columnTopRated$ = this.shop.getTopRated(3);
         this.columnSpecialOffers$ = this.shop.getSpecialOffers(3);
         this.columnBestsellers$ = this.shop.getBestsellers(3);
@@ -74,13 +68,13 @@ export class PageHomeTwoComponent implements OnInit, OnDestroy {
                 {
                     name: 'Nuevos',
                     current: true,
-                    products$: this.shop.getFeaturedProducts(null, 10),
+                    products$: this.shop.getFeaturedProducts(null, 8),
                 }
                 ,
                 {
                     name: 'Lo mas vendidos',
                     current: false,
-                    products$: this.shop.getFeaturedProducts('power-tools', 10),
+                    products$: this.shop.getFeaturedProducts('power-tools', 8),
                 },
                 // {
                 //     name: 'Hand Tools',
@@ -94,22 +88,9 @@ export class PageHomeTwoComponent implements OnInit, OnDestroy {
                 // },
             ],
         };
-        this.ProductoService.GetDatosProductos().pipe(finalize(() => {
-            // this.groupChange(this.featuredProducts, this.featuredProducts.groups[0]);
-            // console.log('featuredProducts',this.featuredProducts);
-            this.featuredProducts.loading = false;
-        })).subscribe({
-            next: (resp) => {
-                this.featuredProducts.products = resp;
-            },
-            error: (error) => {
 
-            }
-        })
 
         //-------------------------------
-
-
         this.latestProducts = {
             abort$: new Subject<void>(),
             loading: false,
@@ -141,13 +122,29 @@ export class PageHomeTwoComponent implements OnInit, OnDestroy {
 
         this.groupChange(this.latestProducts, this.latestProducts.groups[0]);
 
-        this.ProductoService.GetDatosProductosMasVendido().pipe(finalize(() => {
-        })).subscribe({
-            next: (resp) => {
-                this.bestsellers$ = resp;
-            },
-            error: (error) => {
+        // this.ProductoService.GetDatosProductosMasVendido().pipe(finalize(() => {
+        // })).subscribe({
+        //     next: (resp) => {
+        //         this.bestsellers$ = resp;
+        //     },
+        //     error: (error) => {
 
+        //     }
+        // })
+
+        this.ProductoService.traerDatosInicialProducto().pipe(takeUntil(this.destroy$), finalize(() => {
+            // this.groupChange(this.featuredProducts, this.featuredProducts.groups[0]);
+            this.featuredProducts.loading = false;
+        })).subscribe({
+            next: resp => {
+                this.slides = resp.slider;
+                this.featuredProducts.products = resp.producto;
+                this.posts = resp.promociones;
+            },
+            error: error => {
+                this.toastr.error(`Error al traer los datos Iniciales.`, undefined, {
+                    timeOut: 5000,
+                });
             }
         })
     }
@@ -169,7 +166,9 @@ export class PageHomeTwoComponent implements OnInit, OnDestroy {
                         carousel.products = resp;
                     },
                     error: (error) => {
-                        alert("Error");
+                        this.toastr.error(`Error al traer producto nuevos.`, undefined, {
+                            timeOut: 5000,
+                        });
                     }
                 });
                 break;
@@ -181,7 +180,9 @@ export class PageHomeTwoComponent implements OnInit, OnDestroy {
                         carousel.products = resp;
                     },
                     error: (error) => {
-                        alert("Error");
+                        this.toastr.error(`Error al producto mas vendidos.`, undefined, {
+                            timeOut: 5000,
+                        });
                     }
                 })
                 break;

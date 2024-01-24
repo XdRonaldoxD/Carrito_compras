@@ -1,10 +1,10 @@
-<div class="block order-success">
+<div class="block order-success" *ngIf="order">
     <div class="container">
         <div class="order-success__body">
             <div class="order-success__header">
                 <app-icon class="order-success__icon" name="check-100" size="100"></app-icon>
                 <h1 class="order-success__title">Gracias</h1>
-                <div class="order-success__subtitle">Tu orden ha sido recivida</div>
+                <div class="order-success__subtitle">Tu orden ha sido recibida</div>
                 <div class="order-success__actions">
                     <a routerLink="/" class="btn btn-xs btn-secondary">Ir a la Pagina de Inicio</a>
                 </div>
@@ -52,13 +52,18 @@
                             </td>
                             <td class="order-list__column-product">
                                 <a [routerLink]="root.product(item)">{{ item.name }}</a>
-                                <div *ngIf="item.options && item.options.length > 0" class="order-list__options">
-                                    <ul class="order-list__options-list">
-                                        <li *ngFor="let option of item.options" class="order-list__options-item">
-                                            <span class="order-list__options-label">{{ option.label + ': ' }}</span>
-                                            <span class="order-list__options-value">{{ option.value }}</span>
-                                        </li>
-                                    </ul>
+                                <div *ngIf="item.options && item.options.length > 0" class="order-list__options" >
+                                        <ul class="order-list__options-list"  *ngFor="let option of item.options">
+                                            <li  class="order-list__options-item">
+                                                <span class="order-list__options-label">{{ option.label + ': ' }}</span>
+                                                <span class="order-list__options-value">{{ option.value }}</span> 
+                                         
+                                            </li>
+                                            <li class="order-list__options-item">
+                                                <span class="order-list__options-label">{{ option.label_atributo + ': ' }}</span>
+                                                <span class="order-list__options-value">{{ option.value_atributo }}</span>
+                                            </li>
+                                        </ul>
                                 </div>
                             </td>
                             <td class="order-list__column-quantity" data-title="Qty:">{{ item.quantity }}</td>

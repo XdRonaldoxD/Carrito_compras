@@ -44,6 +44,8 @@ export class BlockProductsCarouselComponent implements OnChanges, AfterViewInit 
         dots: false,
         loop: true,
         stagePadding: 1,
+        autoplay: true,
+        autoplayTimeout: 5000,
         rtl: this.direction.isRTL()
     };
 

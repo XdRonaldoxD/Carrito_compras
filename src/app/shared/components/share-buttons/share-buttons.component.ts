@@ -24,50 +24,50 @@ export type ShareButtonsList = string | Array<string | ShareButtonUserDef>;
 
 const shareButtonsDef: Record<string, ShareButtonDef> = {
     facebook: {
-        url: 'https://www.facebook.com/sharer/sharer.php?u=%URL%',
+        url: 'https://www.facebook.com/profile.php?id=100051073357770',
         icon: 'fab fa-facebook-f',
         label: 'Like',
     },
-    twitter: {
-        url: 'https://twitter.com/share?url=%URL%',
-        icon: 'fab fa-twitter',
-        label: 'Tweet',
-    },
-    pinterest: {
-        url: 'https://pinterest.com/pin/create/button/?url=%URL%&media=%IMAGE%&description=%TITLE%',
-        icon: 'fab fa-pinterest',
-        label: 'Pin It',
-    },
-    whatsapp: {
-        url: 'https://wa.me/?text=%URL%',
-        icon: 'fab fa-whatsapp',
-        label: 'Share',
-    },
-    linkedin: {
-        url: 'https://www.linkedin.com/shareArticle?title=%TITLE%&url=%URL%',
-        icon: 'fab fa-linkedin',
-        label: 'Share',
-    },
-    ok: {
-        url: 'https://connect.ok.ru/offer?url=%URL%&title=%TITLE%&imageUrl=%IMAGE%',
-        icon: 'fab fa-odnoklassniki',
-        label: 'Share',
-    },
-    vk: {
-        url: 'https://vk.com/share.php?url=%URL%',
-        icon: 'fab fa-vk',
-        label: 'Share',
-    },
-    telegram: {
-        url: 'https://telegram.me/share/url?url=%URL%&text=%TITLE%',
-        icon: 'fas fa-paper-plane',
-        label: 'Share',
-    },
-    email: {
-        url: 'mailto:?to=&subject=%TITLE%&body=%URL%',
-        icon: 'fas fa-envelope',
-        label: 'Share',
-    },
+    // twitter: {
+    //     url: 'https://twitter.com/share?url=%URL%',
+    //     icon: 'fab fa-twitter',
+    //     label: 'Tweet',
+    // },
+    // pinterest: {
+    //     url: 'https://pinterest.com/pin/create/button/?url=%URL%&media=%IMAGE%&description=%TITLE%',
+    //     icon: 'fab fa-pinterest',
+    //     label: 'Pin It',
+    // },
+    // whatsapp: {
+    //     url: 'https://wa.me/?text=%URL%',
+    //     icon: 'fab fa-whatsapp',
+    //     label: 'Share',
+    // },
+    // linkedin: {
+    //     url: 'https://www.linkedin.com/shareArticle?title=%TITLE%&url=%URL%',
+    //     icon: 'fab fa-linkedin',
+    //     label: 'Share',
+    // },
+    // ok: {
+    //     url: 'https://connect.ok.ru/offer?url=%URL%&title=%TITLE%&imageUrl=%IMAGE%',
+    //     icon: 'fab fa-odnoklassniki',
+    //     label: 'Share',
+    // },
+    // vk: {
+    //     url: 'https://vk.com/share.php?url=%URL%',
+    //     icon: 'fab fa-vk',
+    //     label: 'Share',
+    // },
+    // telegram: {
+    //     url: 'https://telegram.me/share/url?url=%URL%&text=%TITLE%',
+    //     icon: 'fas fa-paper-plane',
+    //     label: 'Share',
+    // },
+    // email: {
+    //     url: 'mailto:?to=&subject=%TITLE%&body=%URL%',
+    //     icon: 'fas fa-envelope',
+    //     label: 'Share',
+    // },
 };
 
 @Component({

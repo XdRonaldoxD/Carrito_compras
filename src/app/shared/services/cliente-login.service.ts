@@ -17,7 +17,7 @@ export class ClienteLoginService {
     const headers = new HttpHeaders({
       Authorization: this.token
     });
-    return this.httpCliente.post(`${this.api}Apicontroller=Cliente&action=GuardarCliente`, formData, { headers: headers });
+    return this.httpCliente.post(`${this.api}&Apicontroller=Cliente&action=GuardarCliente`, formData, { headers: headers });
   }
 
   LoginCliente($formulario: any): Observable<any> {
@@ -27,20 +27,29 @@ export class ClienteLoginService {
     const headers = new HttpHeaders({
       Authorization: this.token
     });
-    return this.httpCliente.post(`${this.api}Apicontroller=Cliente&action=LoginCliente`, formData, { headers: headers });
+    return this.httpCliente.post(`${this.api}&Apicontroller=Cliente&action=LoginCliente`, formData, { headers: headers });
   }
   TraerDepartamentoCliente(): Observable<any> {
     const headers = new HttpHeaders({
       Authorization: this.token
     });
-    return this.httpCliente.get(`${this.api}Apicontroller=Cliente&action=TraerDepartamentoCliente`, { headers: headers });
+    return this.httpCliente.get(`${this.api}&Apicontroller=Cliente&action=TraerDepartamentoCliente`, { headers: headers });
   }
 
   TraerProvinciaCliente(id_departamento: any): Observable<any> {
     const headers = new HttpHeaders({
       Authorization: this.token
     });
-    return this.httpCliente.get(`${this.api}Apicontroller=Cliente&action=TraerProvinciaCliente&id_departamento=${id_departamento}`, { headers: headers });
+    return this.httpCliente.get(`${this.api}&Apicontroller=Cliente&action=TraerProvinciaCliente&id_departamento=${id_departamento}`, { headers: headers });
+  }
+
+  TraerDistrito(id_provincia: any): Observable<any> {
+    let Params = new HttpParams();
+    Params = Params.append('id_provincia', id_provincia);
+    const headers = new HttpHeaders({
+      Authorization: this.token
+    });
+    return this.httpCliente.get(`${this.api}&controller=NotaVenta&action=TraerDistrito`, { headers: headers, params: Params });
   }
 
   ActualizarContraseniaUsuario(id_cliente: any, password_anterior: any, password_actual: any) {
@@ -51,7 +60,7 @@ export class ClienteLoginService {
     const headers = new HttpHeaders({
       Authorization: this.token
     });
-    return this.httpCliente.post(`${this.api}Apicontroller=Cliente&action=ActualizarPasswordCliente`, formData, { headers: headers });
+    return this.httpCliente.post(`${this.api}&Apicontroller=Cliente&action=ActualizarPasswordCliente`, formData, { headers: headers });
   }
 
   GuardarUsuario(usuario: usuario) {
@@ -77,7 +86,7 @@ export class ClienteLoginService {
     const headers = new HttpHeaders({
       Authorization: this.token
     });
-    return this.httpCliente.get(`${this.api}Apicontroller=Cliente&action=listarPedidosCliente`, { headers: headers, params: Params });
+    return this.httpCliente.get(`${this.api}&Apicontroller=Cliente&action=listarPedidosCliente`, { headers: headers, params: Params });
   }
 
   TraerPedidoDetalle(id_pedido: any): Observable<any> {
@@ -86,7 +95,7 @@ export class ClienteLoginService {
     const headers = new HttpHeaders({
       Authorization: this.token
     });
-    return this.httpCliente.get(`${this.api}Apicontroller=Cliente&action=TraerPedidoDetalle`, { headers: headers, params: Params });
+    return this.httpCliente.get(`${this.api}&Apicontroller=Cliente&action=TraerPedidoDetalle`, { headers: headers, params: Params });
   }
 
   TraerDniApiCliente(Dni_cliente: number) {
@@ -105,7 +114,27 @@ export class ClienteLoginService {
     const headers = new HttpHeaders({
       Authorization: this.token
     });
-    return this.httpCliente.post(`${this.api}Apicontroller=Cliente&action=EnviarDatosPedidosCliente`, formData, { headers: headers });
+    return this.httpCliente.post(`${this.api}&Apicontroller=Cliente&action=EnviarDatosPedidosCliente`, formData, { headers: headers });
+  }
+
+  correoUsuarioEnUso(e_mail_cliente:string,id_usuario:any=null): Observable<any> {
+    let Params = new HttpParams();
+    Params = Params.append('e_mail_cliente', e_mail_cliente);
+    Params = Params.append('id_usuario', id_usuario);
+    const headers = new HttpHeaders({
+      Authorization: this.token
+    });
+    return this.httpCliente.get(`${this.api}&Apicontroller=Cliente&action=correoUsuarioEnUso`, { headers: headers, params: Params });
+  }
+
+  validarDNICliente(dni_cliente:string,id_usuario:any=null): Observable<any> {
+    let Params = new HttpParams();
+    Params = Params.append('dni_cliente', dni_cliente);
+    Params = Params.append('id_usuario', id_usuario);
+    const headers = new HttpHeaders({
+      Authorization: this.token
+    });
+    return this.httpCliente.get(`${this.api}&Apicontroller=Cliente&action=validarDNICliente`, { headers: headers, params: Params });
   }
 
   TraerUUID(): Observable<any> {
@@ -176,7 +205,7 @@ export class ClienteLoginService {
     const headers = new HttpHeaders({
       Authorization: this.token
     });
-    return this.httpCliente.post(`${this.api}Apicontroller=Pusher&action=ChatBoxApi`, formData, { headers: headers });
+    return this.httpCliente.post(`${this.api}&Apicontroller=Pusher&action=ChatBoxApi`, formData, { headers: headers });
   }
 
   saveUUID(cliente_identificado: string) {
@@ -206,7 +235,7 @@ export class ClienteLoginService {
     const headers = new HttpHeaders({
       Authorization: this.token
     });
-    return this.httpCliente.post(`${this.api}Apicontroller=Pusher&action=ChatBoxDatoClienteApi`, formData, { headers: headers });
+    return this.httpCliente.post(`${this.api}&Apicontroller=Pusher&action=ChatBoxDatoClienteApi`, formData, { headers: headers });
   }
 
   ClienteDesconetadoChatbox(cliente_identificado: string): Observable<any> {
@@ -215,7 +244,7 @@ export class ClienteLoginService {
     const headers = new HttpHeaders({
       Authorization: this.token
     });
-    return this.httpCliente.post(`${this.api}Apicontroller=Pusher&action=ChatBoxDatoClienteDesconectadoApi`, formData, { headers: headers });
+    return this.httpCliente.post(`${this.api}&Apicontroller=Pusher&action=ChatBoxDatoClienteDesconectadoApi`, formData, { headers: headers });
   }
 
   Traernombre_cliente(): Observable<any> {
@@ -229,6 +258,21 @@ export class ClienteLoginService {
     return UserIdentificado;
   }
 
+  TraerDatosEmpresa(): Observable<any> {
+    let Params = new HttpParams();
+    const currentURL = window.location.href;
+    const url = new URL(currentURL);
+    const dominio = url.hostname;
+    Params = Params.append('dominio_empresa_venta_online', dominio);
+    const headers = new HttpHeaders({
+      Authorization: this.token
+    });
+    return this.httpCliente.get(`${this.api}&Apicontroller=Empresa&action=traerDatosEmpresa`, { headers: headers, params: Params });
+  }
+
+
+
+  
 
 
 

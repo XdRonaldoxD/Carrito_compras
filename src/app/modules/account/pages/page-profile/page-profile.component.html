@@ -88,7 +88,8 @@
             </div>
             <div class="form-group">
                 <label>Provincia <strong class="text-danger">(*)</strong></label>
-                <ng-select [clearable]="false" [class.is-invalid]="(Formregistrar.controls.idProvincia|isInvalid)"
+                <ng-select [clearable]="false" (change)="SeleccionarProvincia($event)"
+                 [class.is-invalid]="(Formregistrar.controls.idProvincia|isInvalid)"
                     formControlName="idProvincia">
                     <ng-option value="">Seleccionar Provincia</ng-option>
                     <ng-option *ngFor="let item of Provincia_cliente" [value]="item.idProvincia">
@@ -96,6 +97,21 @@
                 </ng-select>
                 <div class="invalid-feedback">
                     <div *ngIf="Formregistrar.controls.idProvincia|hasError:'required'">
+                        {{ 'Campo Obligatorio' }}
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Distrito <strong class="text-danger">(*)</strong></label>
+                <ng-select [clearable]="false"
+                    [class.is-invalid]="(Formregistrar.controls.idDistrito|isInvalid)"
+                    formControlName="idDistrito">
+                    <ng-option value="">Seleccionar Distrito</ng-option>
+                    <ng-option *ngFor="let item of distritos" [value]="item.idDistrito">
+                        {{item.distrito}}</ng-option>
+                </ng-select>
+                <div class="invalid-feedback">
+                    <div *ngIf="Formregistrar.controls.idDistrito|hasError:'required'">
                         {{ 'Campo Obligatorio' }}
                     </div>
                 </div>

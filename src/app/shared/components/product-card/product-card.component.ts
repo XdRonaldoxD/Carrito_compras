@@ -58,9 +58,17 @@ export class ProductCardComponent implements OnInit, OnDestroy, OnChanges {
         if (this.addingToCart) {
             return;
         }
-        console.log(this.product);
+        let cantidad: any = this.product?.attributes[0].values;
+        let id_producto_color=null;
+        if (cantidad.length > 0) {
+            id_producto_color=this.product.attributes[0].values[0].id_producto_color;
+        }
+        let id_atributo_producto=null;
+        if (this.product?.atributo_producto.length>0) {
+            id_atributo_producto=this.product.atributo_producto[0].id_atributo_producto;
+        }
         this.addingToCart = true;
-        this.cart.add(this.product, 1,[],this.product.attributes[0].values[0].id_producto_color,this.product.atributo_producto[0].id_atributo_producto).subscribe({
+        this.cart.add(this.product, 1,[],id_producto_color,id_atributo_producto).subscribe({
             complete: () => {
                 this.addingToCart = false;
                 this.cd.markForCheck();

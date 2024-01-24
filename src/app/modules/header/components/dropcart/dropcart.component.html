@@ -35,27 +35,30 @@
                         <ul *ngIf="item.options.length" class="dropcart__product-options">
                             <li *ngFor="let option of item.options">{{ option.name }}: {{ option.value }}</li>
                         </ul>
-                        <table class="table">
+                        <table class="table table-bordered" *ngIf="item.atributo_producto?.length>0">
                             <thead>
+                                <tr>
+                                    <td style="padding: 0px 0px;text-align: center;"> <strong>Cantidad</strong></td>
+                                    <td style="padding: 0px 0px;text-align: center;"> <strong>Color</strong></td>
+                                    <td style="padding: 0px 0px;text-align: center;"> <strong>Talla</strong></td>
+                                </tr>
                                 <ng-container *ngFor="let atributo of item.atributo_producto">
                                     <tr>
-                                        <td style="padding: 0px 1rem;">{{ atributo.cantidad }}</td>
-                                        <td style="padding: 0px 1rem;text-align: center;">
+                                        <td style="padding: 0px 0px;text-align: center;">{{ atributo.cantidad }}</td>
+                                        <td style="padding: 0px 0px;text-align: center;">
                                             <ng-container *ngFor="let color of item.product.attributes[0].values">
                                                 <ng-container *ngIf="color.id_producto_color==atributo.id_producto_color">
                                                     <span class="dropcart__product-price"
-                                                    style="padding: 0px 1rem;background-color: {{color.hexadecimal}};color: white;border-radius: 15px;border:1px solid #c1c1c1;text-shadow: 2px 0 #000;"
+                                                    style="padding: 2px;background-color: {{color.hexadecimal}};color: white;border-radius: 15px;border:1px solid #c1c1c1;text-shadow: 2px 0 #000;"
                                                     >{{color.name}}</span>
                                                 </ng-container>
                                             </ng-container>
                                         </td>
-                                        <td style="padding: 0px 1rem;">
+                                        <td style="padding: 0px 0px;text-align: center;">
                                             <ng-container
                                                 *ngFor="let atributo_producto of item.product.atributo_producto">
-                                                <ng-container
-                                                    *ngIf="atributo_producto.id_atributo_producto==atributo.id_atributo_producto">
-                                                    <span
-                                                        class="dropcart__product-price">{{atributo_producto.glosa_atributo}}</span>
+                                                <ng-container *ngIf="atributo_producto.id_atributo_producto==atributo.id_atributo_producto">
+                                                    <span  class="dropcart__product-price">{{atributo_producto.glosa_atributo}}</span>
                                                 </ng-container>
                                             </ng-container>
                                         </td>

@@ -7,25 +7,18 @@
     'post-card--size--sm': layout === 'list-sm'
 }">
     <div class="post-card__image">
-        <a appClick [routerLink]="root.post()">
-            <img [src]="post.image" alt="">
+        <a appClick target="_blank"  href="https://api.whatsapp.com/send?phone=+51{{store.phone}}&text=Hola%21%20Quisiera%20m%C3%A1s%20informaci%C3%B3n%20sobre la promoción {{post.titulo_promocion}}">
+            <img [src]="post.url_promocion" alt="">
         </a>
     </div>
     <div class="post-card__info">
-        <div class="post-card__category">
-            <a appClick [routerLink]="root.post()" *ngFor="let category of post.categories">{{ category }}</a>
-        </div>
         <div class="post-card__name">
-            <a appClick [routerLink]="root.post()">{{ post.title }}</a>
+            <a appClick target="_blank" href="https://api.whatsapp.com/send?phone=+51{{store.phone}}&text=Hola%21%20Quisiera%20m%C3%A1s%20informaci%C3%B3n%20sobre la promoción {{post.titulo_promocion}}">{{ post.titulo_promocion }}</a>
         </div>
-        <div class="post-card__date">{{ post.date }}</div>
-        <div class="post-card__content">
-            In one general sense, philosophy is associated with wisdom,
-            intellectual culture and a search for knowledge.
-            In that sense, all cultures...
-        </div>
+        <div class="post-card__date">Promocion hasta {{ post.fecha_promocion | date:"dd/MM/yyyy" }}</div>
+        <div class="post-card__content" [innerHTML]="post.descripcion_promocion"></div>
         <div class="post-card__read-more">
-            <a appClick [routerLink]="root.post()" class="btn btn-secondary btn-sm">Read More</a>
+            <a appClick href="https://api.whatsapp.com/send?phone=+51{{store.phone}}&text=Hola%21%20Quisiera%20m%C3%A1s%20informaci%C3%B3n%20sobre la promoción {{post.titulo_promocion}}"  class="btn btn-secondary btn-sm">Read More</a>
         </div>
     </div>
 </div>

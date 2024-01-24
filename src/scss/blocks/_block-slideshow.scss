@@ -115,7 +115,7 @@ $local-dot-size: $local-dots-height - $local-dots-padding * 2;
 
 
 .block-slideshow--layout--full {
-    margin-top: 20px;
+    // margin-top: 20px;
 
     @media (min-width: breakpoint(md-start)) {
         .block-slideshow__body,
@@ -124,7 +124,7 @@ $local-dot-size: $local-dots-height - $local-dots-padding * 2;
         }
 
         .block-slideshow__slide-content {
-            bottom: 54px;
+            bottom: 154px;
 
             @include direction {
                 #{$inset-inline-start}: 72px;

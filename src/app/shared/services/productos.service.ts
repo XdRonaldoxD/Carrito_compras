@@ -17,7 +17,7 @@ export class ProductosService {
     const headers = new HttpHeaders({
       Authorization: this.token
     });
-    return this.httpCliente.get(`${this.api}Apicontroller=Producto&action=listarProductos`, { headers: headers });
+    return this.httpCliente.get(`${this.api}&Apicontroller=Producto&action=listarProductos`, { headers: headers });
   }
 
   GetDatosProductosUrlAmigable(parametro:any): Observable<any> {
@@ -26,28 +26,28 @@ export class ProductosService {
     const headers = new HttpHeaders({
       Authorization: this.token
     });
-    return this.httpCliente.post(`${this.api}Apicontroller=Producto&action=TraerProductoSlug`, formData,{ headers: headers });
+    return this.httpCliente.post(`${this.api}&Apicontroller=Producto&action=TraerProductoSlug`, formData,{ headers: headers });
   }
 
   GetDatosProductosMasVendido(): Observable<any> {
     const headers = new HttpHeaders({
       Authorization: this.token
     });
-    return this.httpCliente.get(`${this.api}Apicontroller=Producto&action=ProductosVendidoOferta&eloquent=${true}&limit=10`,{headers:headers});
+    return this.httpCliente.get(`${this.api}&Apicontroller=Producto&action=ProductosVendidoOferta&eloquent=${true}&limit=10`,{headers:headers});
   }
 
   MegaMenuProductos(): Observable<any> {
     const headers = new HttpHeaders({
       Authorization: this.token
     });
-    return this.httpCliente.get(`${this.api}Apicontroller=Producto&action=MegaMenuProductos&eloquent=${true}`,{headers:headers});
+    return this.httpCliente.get(`${this.api}&Apicontroller=Producto&action=MegaMenuProductos&eloquent=${true}`,{headers:headers});
   }
 
   TodasCategoriaPadre(): Observable<any> {
     const headers = new HttpHeaders({
       Authorization: this.token
     });
-    return this.httpCliente.get(`${this.api}Apicontroller=Producto&action=TodasCategoriaPadre&eloquent=${true}`,{headers:headers});
+    return this.httpCliente.get(`${this.api}&Apicontroller=Producto&action=TodasCategoriaPadre&eloquent=${true}`,{headers:headers});
   }
 
   FiltrarProductoCategoria(category:any,query:any): Observable<any> {
@@ -57,14 +57,14 @@ export class ProductosService {
     const headers = new HttpHeaders({
       Authorization: this.token
     });
-    return this.httpCliente.post(`${this.api}Apicontroller=Producto&action=FiltrarProductoCategoria&eloquent=${true}`,formData,{headers:headers});
+    return this.httpCliente.post(`${this.api}&Apicontroller=Producto&action=FiltrarProductoCategoria&eloquent=${true}`,formData,{headers:headers});
   }
 
   MegaMenuProductosMobile(): Observable<any> {
     const headers = new HttpHeaders({
       Authorization: this.token
     });
-    return this.httpCliente.get(`${this.api}Apicontroller=Producto&action=MegaMenuProductosMobile&eloquent=${true}`,{headers:headers});
+    return this.httpCliente.get(`${this.api}&Apicontroller=Producto&action=MegaMenuProductosMobile&eloquent=${true}`,{headers:headers});
   }
 
   TraerListadoShopList(urlamigable_categoria:any): Observable<any>{
@@ -73,6 +73,21 @@ export class ProductosService {
     const headers = new HttpHeaders({
       Authorization: this.token
     });
-    return this.httpCliente.get(`${this.api}Apicontroller=Producto&action=ListarCategoriaProductoApi`,{headers:headers,params: Params});
+    return this.httpCliente.get(`${this.api}&Apicontroller=Producto&action=ListarCategoriaProductoApi`,{headers:headers,params: Params});
   }
+
+  CategoriaPopulares(): Observable<any> {
+    const headers = new HttpHeaders({
+      Authorization: this.token
+    });
+    return this.httpCliente.get(`${this.api}&Apicontroller=Producto&action=CategoriaPopulares`,{headers:headers});
+  }
+
+  traerDatosInicialProducto(): Observable<any> {
+    const headers = new HttpHeaders({
+      Authorization: this.token
+    });
+    return this.httpCliente.get(`${this.api}&Apicontroller=Producto&action=traerDatosInicialProducto`,{headers:headers});
+  }
+
 }
