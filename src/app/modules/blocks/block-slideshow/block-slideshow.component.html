@@ -3,19 +3,19 @@
     <div class="container">
         <div class="row">
             <div *ngIf="withDepartments" class="col-3 d-lg-block d-none" appDepartmentsArea></div>
-            <div class="col-12" [ngClass]="{'col-lg-12': !withDepartments, 'col-lg-9': withDepartments}">
+            <div class="col-12 " [ngClass]="{'col-lg-12': !withDepartments, 'col-lg-9': withDepartments}">
                 <div class="block-slideshow__body">
                     <owl-carousel-o *ngIf="slides?.length" [options]="options" appOwlPreventClick>
                         <ng-template *ngFor="let slide of slides" carouselSlide>
-                            <a class="block-slideshow__slide" href="" appClick>
+                            <a class="block-slideshow__slide" routerLink="shop/catalog/{{slide.urlamigable_categoria}}" appClick>
                                 <div class="block-slideshow__slide-image block-slideshow__slide-image--desktop" [ngStyle]="{'background-image': 'url('+(withDepartments ? slide.image_classic : slide.image_full)+')'}"></div>
                                 <div class="block-slideshow__slide-image block-slideshow__slide-image--mobile" [ngStyle]="{'background-image': 'url('+slide.image_mobile+')'}"></div>
-                                <div class="block-slideshow__slide-content">
-                                    <div class="block-slideshow__slide-title" style="color: #009fc2;" [innerHTML]="sanitizer.bypassSecurityTrustHtml(slide.title)"></div>
-                                    <div class="block-slideshow__slide-text" [innerHTML]="sanitizer.bypassSecurityTrustHtml(slide.text)"></div>
-                                    <div class="block-slideshow__slide-button">
-                                        <span class="btn btn-primary btn-lg">COMPRAR AHORA <i class="fa fa-shopping-basket" aria-hidden="true"></i> </span>
-                                    </div>
+                                <div class="block-slideshow__slide-content" >
+                                    <div class="" [innerHTML]="sanitizer.bypassSecurityTrustHtml(slide.texto_slider ?? '')"></div>
+                                    <!-- <div class="block-slideshow__slide-text" [innerHTML]="sanitizer.bypassSecurityTrustHtml(slide.text)"></div> -->
+                                    <a class="block-slideshow__slide-button" routerLink="shop/catalog/{{slide.urlamigable_categoria}}" >
+                                        <span style="border-radius: 2rem;"  class="btn btn-primary btn-lg">VER MAS <i class="fa fa-shopping-basket" aria-hidden="true"></i> </span>
+                                    </a>    
                                 </div>
                             </a>
                         </ng-template>

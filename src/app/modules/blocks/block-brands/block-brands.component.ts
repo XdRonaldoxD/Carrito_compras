@@ -21,6 +21,8 @@ export class BlockBrandsComponent implements AfterViewInit {
         nav: false,
         dots: false,
         loop: true,
+        autoplay: true,
+        autoplayTimeout: 5000,
         responsive: {
             1100: {items: 6},
             920: {items: 5},

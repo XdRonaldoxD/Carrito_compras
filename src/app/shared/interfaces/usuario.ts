@@ -14,6 +14,7 @@ export interface usuario {
     mediollegada_cliente: string,
     idProvincia: number,
     idDepartamento: number,
+    idDistrito:number,
     id_cliente: number,
     id_usuario: number,
 }

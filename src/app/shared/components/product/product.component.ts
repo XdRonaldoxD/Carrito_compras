@@ -26,8 +26,8 @@ export class ProductComponent {
     addingToCart = false;
     addingToWishlist = false;
     addingToCompare = false;
-    id_producto_color: string = '';
-    id_atributo_producto: string = '';
+    id_producto_color: any = '';
+    id_atributo_producto: any = '';
     constructor(
         @Inject(PLATFORM_ID) private platformId: any,
         private cart: CartService,
@@ -39,31 +39,37 @@ export class ProductComponent {
         private toastr: ToastrService,
 
     ) {
-    
+
     }
 
 
 
     addToCart(): void {
-        let id_producto_color=this.id_producto_color;
-        let id_atributo_producto=this.id_atributo_producto;
-        console.log(this.id_atributo_producto);
-        if (this.id_producto_color == "") {
-            this.toastr.error(`Debe seleccionar el color del producto.`, 'Color!', {
-                timeOut: 5000,
-            });
-            return;
+        let cantidad: any = this.product?.attributes[0].values;
+        if (cantidad.length > 0) {
+            if (this.id_producto_color == "") {
+                this.toastr.error(`Debe seleccionar el color del producto.`, 'Color!', {
+                    timeOut: 5000,
+                });
+                return;
+            }
+        } else {
+            this.id_producto_color = null;
         }
-        if (this.id_atributo_producto == "") {
-            this.toastr.error(`Debe seleccionar la talla del producto.`, 'Talla!', {
-                timeOut: 5000,
-            });
-            return;
+        if (this.product?.atributo_producto.length > 0) {
+            if (this.id_atributo_producto == "") {
+                this.toastr.error(`Debe seleccionar la talla del producto.`, 'Talla!', {
+                    timeOut: 5000,
+                });
+                return;
+            }
+        } else {
+            this.id_atributo_producto = null;
         }
+
         if (!this.addingToCart && this.product && this.quantity.value > 0) {
             this.addingToCart = true;
-          
-            this.cart.add(this.product, this.quantity.value,[],id_producto_color,id_atributo_producto).subscribe({ complete: () => this.addingToCart = false });
+            this.cart.add(this.product, this.quantity.value, [], this.id_producto_color, this.id_atributo_producto).subscribe({ complete: () => this.addingToCart = false });
         }
     }
 

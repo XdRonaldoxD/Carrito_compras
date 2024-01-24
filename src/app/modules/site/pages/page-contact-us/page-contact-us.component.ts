@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { StoreService } from 'src/app/shared/services/store.service';
 
 @Component({
     selector: 'app-contact-us',
@@ -6,5 +7,5 @@ import { Component } from '@angular/core';
     styleUrls: ['./page-contact-us.component.scss']
 })
 export class PageContactUsComponent {
-    constructor() { }
+    constructor(public store: StoreService) { }
 }

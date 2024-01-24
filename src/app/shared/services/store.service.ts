@@ -4,9 +4,9 @@ import { Injectable } from '@angular/core';
     providedIn: 'root'
 })
 export class StoreService {
-    address = 'URB. LOS ALISOS Mz.I Lote 4, San Martín de Porres, Peru';
-    email = 'stroyka@example.com';
-    phone = ['986 504 339'];
+    address = 'Cruz de Cano 101, Hualmay 15137, Peru';
+    email = 'lunaabanyovanna@gmail.com';
+    phone = ['989 656 783'];
     hours = 'Lunes-Sabado 8:00am - 6:00pm';
 
     get primaryPhone(): string|null {

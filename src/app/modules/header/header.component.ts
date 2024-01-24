@@ -8,6 +8,6 @@ import { StoreService } from '../../shared/services/store.service';
 })
 export class HeaderComponent {
     @Input() layout: 'classic'|'compact' = 'classic';
-
+    @Input() img_logo:string="";
     constructor(public store: StoreService) { }
 }

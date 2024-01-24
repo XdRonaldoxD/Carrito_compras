@@ -18,7 +18,7 @@ export class SocialLinksComponent {
     theme = theme;
 
     items: SocialLinksItem[] = [
-        {type: 'facebook', url:'//www.facebook.com/profile.php?id=100068671655891', icon: 'fab fa-facebook-f'},
+        {type: 'facebook', url:'https://www.facebook.com/profile.php?id=100051073357770', icon: 'fab fa-facebook-f'},
         // {type: 'twitter', url: this.theme.author.profile_url, icon: 'fab fa-twitter'},
         // {type: 'youtube', url: this.theme.author.profile_url, icon: 'fab fa-youtube'},
         // {type: 'instagram', url: this.theme.author.profile_url, icon: 'fab fa-instagram'},

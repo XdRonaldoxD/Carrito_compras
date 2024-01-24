@@ -62,7 +62,7 @@ $local-transition-duration: .25s;
     width: 100%;
     padding-top: $departments-height;
     position: absolute;
-    background: #009fc2;
+    background: #00aa17;
     box-shadow: $departments-shadow;
     border-radius: 2px;
     top: 0;
@@ -96,6 +96,7 @@ $local-transition-duration: .25s;
 .departments__item--hover {
     .departments__item-link {
         background: $departments-item-hover-bg;
+        color: white;
     }
 }
 .departments__item-arrow {

@@ -7,7 +7,7 @@
 <div class="checkout block">
     <div class="container">
         <div class="row">
-            <div class="col-12 mb-3">
+            <div class="col-12 mb-3" *ngIf="cliente===null">
                 <app-alert type="primary" size="lg">Soy Cliente? <a [routerLink]="root.login()">
                         Haga clic aquí para ingresar</a></app-alert>
             </div>
@@ -65,7 +65,7 @@
 
                         <div class="form-group">
                             <label for="Departamento">Departamento <strong class="text-danger">(*)</strong></label>
-                            <ng-select id="Departamento" (change)="Provincias($event)" [clearable]="false"
+                            <ng-select id="Departamento" (change)="Departamentos($event)" [clearable]="false"
                                 [class.is-invalid]="(Formregistrar.controls.idDepartamento|isInvalid)"
                                 formControlName="idDepartamento">
                                 <ng-option value="">Seleccionar Departamento</ng-option>
@@ -80,7 +80,7 @@
                         </div>
                         <div class="form-group">
                             <label>Provincia <strong class="text-danger">(*)</strong></label>
-                            <ng-select [clearable]="false"
+                            <ng-select [clearable]="false" (change)="SeleccionarProvincia($event)"
                                 [class.is-invalid]="(Formregistrar.controls.idProvincia|isInvalid)"
                                 formControlName="idProvincia">
                                 <ng-option value="">Seleccionar Provincia</ng-option>
@@ -94,11 +94,26 @@
                             </div>
                         </div>
                         <div class="form-group">
+                            <label>Distrito <strong class="text-danger">(*)</strong></label>
+                            <ng-select [clearable]="false"
+                                [class.is-invalid]="(Formregistrar.controls.idDistrito|isInvalid)"
+                                formControlName="idDistrito">
+                                <ng-option value="">Seleccionar Distrito</ng-option>
+                                <ng-option *ngFor="let item of distritos" [value]="item.idDistrito">
+                                    {{item.distrito}}</ng-option>
+                            </ng-select>
+                            <div class="invalid-feedback">
+                                <div *ngIf="Formregistrar.controls.idDistrito|hasError:'required'">
+                                    {{ 'Campo Obligatorio' }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <label for="checkout-street-address">Correo Electronico <strong
                                     class="text-danger">(*)</strong> </label>
                             <input type="text" class="form-control" id="checkout-street-address"
                                 [class.is-invalid]="(Formregistrar.controls.e_mail_cliente|isInvalid)"
-                                formControlName="e_mail_cliente" placeholder="Correo Electronico">
+                                [readonly]="cliente" formControlName="e_mail_cliente" placeholder="Correo Electronico">
                             <div class="invalid-feedback">
                                 <div *ngIf="Formregistrar.controls.e_mail_cliente|hasError:'required'">
                                     {{ 'Campo Obligatorio' }}
@@ -292,7 +307,7 @@
                                     </label>
                                     <div class="payment-methods__item-container">
                                         <div class="payment-methods__item-description text-muted">
-                                            <img src="https://cdn-icons-png.flaticon.com/512/438/438051.png" alt=""
+                                            <img src="../../../../../assets/images/contrareembolso.png" alt=""
                                                 style="width:11%;"> Paga en efectivo al momento de la entrega.
                                         </div>
                                     </div>
@@ -310,8 +325,26 @@
                                     </label>
                                     <div class="payment-methods__item-container">
                                         <div class="payment-methods__item-description text-muted">
-                                            <img src="https://rc-consulting.org/wp-content/uploads/2020/07/ICONO-YAPE.png"
+                                            <img src="../../../../../assets/images/yape.png"
                                                 alt="Yape" style="width:11%;"> Pagar a través de Yape
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="payment-methods__item d-none">
+                                    <label class="payment-methods__item-header">
+                                        <span class="payment-methods__item-radio input-radio">
+                                            <span class="input-radio__body">
+                                                <input class="input-radio__input" (change)="Pago3()"
+                                                formControlName="metodo_pago" [value]="3" type="radio">
+                                                <span class="input-radio__circle"></span>
+                                            </span>
+                                        </span>
+                                        <span class="payment-methods__item-title">Tarjeta Credito</span>
+                                    </label>
+                                    <div class="payment-methods__item-container">
+                                        <div class="payment-methods__item-description text-muted">
+                                            <img src="assets/images/Logos-01.png"
+                                                alt="Yape" style="width:50%;"> 
                                         </div>
                                     </div>
                                 </li>

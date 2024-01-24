@@ -22,7 +22,7 @@
                 <th class="cart-table__column cart-table__column--image">Image</th>
                 <th class="cart-table__column cart-table__column--product">Product</th>
                 <th class="cart-table__column cart-table__column--price">Price</th>
-                <th class="cart-table__column cart-table__column--quantity">Quantity</th>
+                <th class="cart-table__column cart-table__column--quantity">Cantidad</th>
                 <th class="cart-table__column cart-table__column--total">Total</th>
                 <th class="cart-table__column cart-table__column--remove"></th>
             </tr>
@@ -86,7 +86,6 @@
                                 <th>{{ total.title }}</th>
                                 <td>
                                     {{ total.price|currencyFormat }}
-                                    <div *ngIf="total.type === 'shipping'" class="cart__calc-shipping"><a href="" (click)="$event.preventDefault()">Calculate Shipping</a></div>
                                 </td>
                             </tr>
                             </tbody>

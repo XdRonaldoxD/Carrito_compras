@@ -203,6 +203,10 @@ export class DepartmentsComponent implements OnInit, OnDestroy, AfterViewInit, A
             this.open();
         }
     }
+    panel(isMouseOver: boolean):void{
+        this.isOpen=isMouseOver;
+        this.toggle();
+    }
 
     open(immediately = false): void {
         this.isOpen = true;

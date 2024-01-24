@@ -94,21 +94,28 @@ export class CartService {
                         mismo_atributo = true
                     }
                 });
-                if (!mismo_atributo) {
-                    let atributo_producto = {
+                if (item.atributo_producto.length>0) {
+                    if (!mismo_atributo) {
+                        let atributo_producto = {
+                            id_producto_color: id_producto_color,
+                            id_atributo_producto: id_atributo_producto,
+                            cantidad: quantity
+                        }
+                        item.atributo_producto.push(atributo_producto)
+                    }
+                } 
+              
+
+            } else {
+                let atributo_producto:any=[];
+                if (id_producto_color &&  id_atributo_producto) {
+                     atributo_producto = [{
                         id_producto_color: id_producto_color,
                         id_atributo_producto: id_atributo_producto,
                         cantidad: quantity
-                    }
-                    item.atributo_producto.push(atributo_producto)
+                    }];
                 }
-
-            } else {
-                const atributo_producto = [{
-                    id_producto_color: id_producto_color,
-                    id_atributo_producto: id_atributo_producto,
-                    cantidad: quantity
-                }];
+               
                 
                 item = { product, quantity, options, atributo_producto };
                 this.data.items.push(item);
@@ -189,6 +196,14 @@ export class CartService {
 
     private save(): void {
         localStorage.setItem('cartItems', JSON.stringify(this.data.items));
+    }
+
+    public SaveClienteMercadoPago(cliente:any):void{
+        localStorage.setItem('datos_cliente_compra', JSON.stringify(cliente));
+    }
+    public ObtenerClienteMercadoPago():void{
+        let datos_cliente_compra:any= localStorage.getItem('datos_cliente_compra');
+       return JSON.parse(datos_cliente_compra);
     }
 
     private load(): void {

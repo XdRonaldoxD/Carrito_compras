@@ -15,6 +15,6 @@ export class MegamenuComponent implements OnInit {
     constructor() { }
 
     ngOnInit(): void {
-        // console.log("mega menu",this.menu);
+       
     }
 }

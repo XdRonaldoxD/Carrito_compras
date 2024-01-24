@@ -14,5 +14,10 @@ export class BlockCategoriesComponent {
 
     constructor(
         public root: RootService,
-    ) { }
+    ) { 
+        setTimeout(() => {
+        console.log("categoria popular",this.categories);
+            
+        }, 1000);
+    }
 }
