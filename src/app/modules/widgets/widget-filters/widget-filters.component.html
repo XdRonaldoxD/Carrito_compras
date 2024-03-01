@@ -2,7 +2,7 @@
     'widget-filters--offcanvas--always': offcanvas === 'always',
     'widget-filters--offcanvas--mobile': offcanvas === 'mobile'
 }" appCollapse>
-    <h4 class="widget-filters__title widget__title">Filters</h4>
+    <h4 class="widget-filters__title widget__title">Filtrar</h4>
 
     <div class="widget-filters__list" [formGroup]="filtersForm" *ngIf="filtersForm">
         <div *ngFor="let filter of filters; trackBy: trackBySlug" class="widget-filters__item">
@@ -134,6 +134,6 @@
         </div>
     </div>
     <div class="widget-filters__actions d-flex">
-        <button class="btn btn-secondary btn-sm" (click)="reset()">Reset</button>
+        <button class="btn btn-secondary btn-sm" (click)="reset()">Resetear</button>
     </div>
 </div>

@@ -5,7 +5,7 @@
     </div>
     <ul class="footer-contacts__contacts">
         <li> <a href="https://maps.app.goo.gl/FwaNrNz47tvn9iBV6" target="_blank" rel="noopener noreferrer"><i class="footer-contacts__icon fas fa-map-marker-alt text-danger"></i></a>  {{ store.address }}</li>
-        <li><i class="footer-contacts__icon far fa-envelope"></i> {{ store.email }}</li>
+        <li><i class="footer-contacts__icon far fa-envelope"></i> <a href="mailto:{{store.email}}">{{ store.email }}</a></li>
         <li><a href="https://api.whatsapp.com/send?phone=+51{{store.phone}}&text=Hola%21%20Quisiera%20m%C3%A1s%20informaci%C3%B3n%20sobre" target="_blank"><i class="footer-contacts__icon fab fa-whatsapp text-success"></i></a> {{ store.phone.join(', ') }}</li>
         <li><i class="footer-contacts__icon far fa-clock"></i> {{ store.hours }}</li>
     </ul>

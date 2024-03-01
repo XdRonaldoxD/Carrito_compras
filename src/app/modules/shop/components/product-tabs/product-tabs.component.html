@@ -17,7 +17,7 @@
         <div class="product-tabs__pane" id="tab-description" [ngClass]="{'product-tabs__pane--active': tab === 'description'}">
             <div class="typography">
                 <h3>Descripción completa del producto</h3>
-                <p *ngIf="product" [outerHTML]="product.detallelargo_producto">
+                <p *ngIf="product" [innerHtml]="product.detallelargo_producto">
                     
                 </p>
             </div>

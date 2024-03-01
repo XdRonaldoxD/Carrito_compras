@@ -21,7 +21,9 @@ export class BlockPostsComponent implements AfterViewInit {
         nav: false,
         dots: false,
         loop: true,
-        rtl: this.direction.isRTL()
+        rtl: this.direction.isRTL(),
+        autoplay: true,
+        autoplayTimeout: 5000
     };
 
     carouselOptionsByLayout = {

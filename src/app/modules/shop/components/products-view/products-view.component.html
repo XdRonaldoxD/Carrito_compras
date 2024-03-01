@@ -10,7 +10,7 @@
                 <div class="view-options__filters-button">
                     <button type="button" class="filters-button" (click)="sidebar.open()">
                         <app-icon class="filters-button__icon" name="filters-16" size="16"></app-icon>
-                        <span class="filters-button__title">Filters</span>
+                        <span class="filters-button__title">Filtrar</span>
                         <span class="filters-button__counter" *ngIf="filtersCount > 0">{{ filtersCount }}</span>
                     </button>
                 </div>
@@ -79,6 +79,6 @@
     <div *ngIf="!pageService.items?.length" class="products-view__empty">
         <div class="products-view__empty-title">No matching items</div>
         <div class="products-view__empty-subtitle">Try resetting the filters</div>
-        <button type="button" class="btn btn-primary btn-sm" (click)="resetFilters()">Reset filters</button>
+        <button type="button" class="btn btn-primary btn-sm" (click)="resetFilters()">Resetear filtros</button>
     </div>
 </div>

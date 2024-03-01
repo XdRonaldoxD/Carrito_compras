@@ -28,7 +28,7 @@
                     <a href="" appClick>{{ product.reviews }} Reviews</a><span>/</span><a href="" appClick>Write A Review</a>
                 </div>
             </div> -->
-            <div class="product__description" [outerHTML]="product.descripcion">
+            <div class="product__description" [innerHtml]="product.descripcion">
 
             </div>
             <!--clase:product__features -->
@@ -36,26 +36,19 @@
                 <li *ngFor="let item of product.especificaciones">{{item.name}}: {{item.value}}</li>
             </ul>
             <ul class="product__meta">
-                <li class="product__meta-availability">Disponibilidad: <span class="text-success">Con Stock</span></li>
-                <li>Marca: <a href="" appClick>Wakita</a></li>
+                <li class="product__meta-availability">
+                    Disponibilidad:
+                    <span [class.text-success]="product.stock > 0" [class.text-danger]="product.stock <= 0">
+                        {{ product.stock > 0 ? 'Con Stock' : 'Sin Stock' }}
+                    </span>
+                </li>
+                <li>Marca: <a href="" appClick>{{product.glosa_marca}}</a></li>
                 <li>SKU: {{ product.sku }}</li>
             </ul>
         </div>
         <!-- .product__info / end -->
         <!-- .product__sidebar -->
         <div class="product__sidebar">
-            <div class="product__availability">
-                Disponibilidad:
-                <ng-container *ngIf="product.stock>0; else elseTemplate">
-                    <span class="text-success">Con Stock</span>
-                </ng-container>
-                <ng-template #elseTemplate>
-                    <span class="text-danger">Sin Stock</span>
-                </ng-template>
-
-
-            </div>
-
             <div class="product__prices">
                 <ng-container *ngIf="product.compareAtPrice">
                     <span class="product__new-price">{{ product.price|currencyFormat }}</span>{{ ' ' }}
@@ -67,18 +60,17 @@
             </div>
             <!-- .product__options -->
             <form class="product__options">
-                <div class="form-group product__option">
+                <div *ngIf="product.attributes[0]?.values && product.attributes[0].values.length > 0" class="form-group product__option">
                     <label class="product__option-label">Color</label>
                     <div class="input-radio-color">
                         <div class="input-radio-color__list">
                             <ng-container *ngFor="let item of product.attributes[0].values">
                                 <label class="input-radio-color__item input-radio-color__item--white"
-                                    style="color:{{item.hexadecimal}}" data-toggle="tooltip" title="{{item.name}}">
+                                    [style.color]="item.hexadecimal"  data-toggle="tooltip" title="{{item.name}}">
                                     <input [value]="item.id_producto_color" [(ngModel)]="id_producto_color" type="radio" name="color">
                                     <span></span>
                                 </label>
                             </ng-container>
-
                             <!-- <label class="input-radio-color__item input-radio-color__item--white" style="color: #fff;" data-toggle="tooltip" title="White">
                                 <input type="radio" name="color">
                                 <span></span>
