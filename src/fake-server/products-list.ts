@@ -40,8 +40,8 @@ export function getProductsList(categorySlug: string|null, options: ListOptions,
     const filterValues = options.filterValues || {};
     const filters: Filter[] = [];
     const filtersDef: FilterDef[] = [
-        {type: 'range', slug: 'price', name: 'Price'},
-        {type: 'check', slug: 'brand', name: 'Brand'},
+        {type: 'range', slug: 'price', name: 'Precio'},
+        {type: 'check', slug: 'brand', name: 'Categoria(s)'},
         // {type: 'radio', slug: 'discount', name: 'With Discount'},
         // {type: 'color', slug: 'color', name: 'Color'},
     ];

@@ -38,26 +38,15 @@
                 </div>
             </div>
             <div class="form-group">
-                <label>N° de documento <strong>DNI</strong> <strong class="text-danger">(*)</strong>
-                </label>
+                <label>N° de documento <strong>DNI</strong> <strong class="text-danger">(*)</strong></label>
                 <div class="row">
-                    <div class="col-md-8">
+                    <div class="col-12">
                         <input type="text" class="form-control" readonly formControlName="dni_cliente"
                             placeholder="N° documento"
                             [class.is-invalid]="(Formregistrar.controls.dni_cliente|isInvalid)">
                         <div class="invalid-feedback">
                             <div *ngIf="Formregistrar.controls.dni_cliente|hasError:'required'">
                                 {{ 'Campo Obligatorio' }}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 p-0">
-                        <input type="text" class="form-control" readonly
-                            [class.is-invalid]="(Formregistrar.controls.dv_cliente|isInvalid)"
-                            formControlName="dv_cliente">
-                        <div class="invalid-feedback">
-                            <div *ngIf="Formregistrar.controls.dv_cliente|hasError:'required'">
-                                {{ 'Obligatorio' }}
                             </div>
                         </div>
                     </div>
@@ -89,8 +78,7 @@
             <div class="form-group">
                 <label>Provincia <strong class="text-danger">(*)</strong></label>
                 <ng-select [clearable]="false" (change)="SeleccionarProvincia($event)"
-                 [class.is-invalid]="(Formregistrar.controls.idProvincia|isInvalid)"
-                    formControlName="idProvincia">
+                    [class.is-invalid]="(Formregistrar.controls.idProvincia|isInvalid)" formControlName="idProvincia">
                     <ng-option value="">Seleccionar Provincia</ng-option>
                     <ng-option *ngFor="let item of Provincia_cliente" [value]="item.idProvincia">
                         {{item.provincia}}</ng-option>
@@ -103,8 +91,7 @@
             </div>
             <div class="form-group">
                 <label>Distrito <strong class="text-danger">(*)</strong></label>
-                <ng-select [clearable]="false"
-                    [class.is-invalid]="(Formregistrar.controls.idDistrito|isInvalid)"
+                <ng-select [clearable]="false" [class.is-invalid]="(Formregistrar.controls.idDistrito|isInvalid)"
                     formControlName="idDistrito">
                     <ng-option value="">Seleccionar Distrito</ng-option>
                     <ng-option *ngFor="let item of distritos" [value]="item.idDistrito">
@@ -139,8 +126,7 @@
                 </div>
             </div>
 
-            <button type="button" (click)="ActualizarClienteRegistro()" 
-            [class.btn-loading]="registerInProgress"
+            <button type="button" (click)="ActualizarClienteRegistro()" [class.btn-loading]="registerInProgress"
                 class="btn btn-primary mt-2 mt-md-3 mt-lg-4">Actualizar</button>
         </form>
     </div>

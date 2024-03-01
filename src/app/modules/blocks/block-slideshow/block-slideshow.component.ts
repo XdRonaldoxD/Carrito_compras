@@ -19,7 +19,7 @@ export class BlockSlideshowComponent {
         dots: true,
         loop: true,
         autoplay: true,
-        autoplayTimeout: 20000,
+        autoplayTimeout: 5000,
         responsive: {
             0: { items: 1 }
         },

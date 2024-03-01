@@ -57,13 +57,13 @@ export class PageCheckoutComponent implements OnInit, OnDestroy {
 
     ) {
         this.cliente = api_cliente.TraerUsuario();
-        let nombres_apellidos = '';
+        let apellidos_cliente = '';
         if (this.cliente) {
-            nombres_apellidos = this.cliente?.apellidomaterno_cliente + ' ' + this.cliente?.apellidomaterno_cliente;
+            apellidos_cliente = (this.cliente.apellidopaterno_cliente ?? '') + ' ' + (this.cliente.apellidomaterno_cliente ?? '');
         }
         this.Formregistrar = this.fb.group({
             nombre_cliente: [this.cliente?.nombre_cliente, [Validators.required]],
-            apellidos_cliente: [nombres_apellidos, [Validators.required]],
+            apellidos_cliente: [apellidos_cliente, [Validators.required]],
             e_mail_cliente: [this.cliente?.e_mail_cliente, [Validators.required, Validators.email]],
             telefono_cliente: [this.cliente?.telefono_cliente],
             crearcuenta: [false],

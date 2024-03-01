@@ -51,4 +51,6 @@ export interface Product {
     attributes: ProductAttribute[];
     customFields: CustomFields;
     atributo_producto?:any;
+    glosa_marca?: string;
+
 }

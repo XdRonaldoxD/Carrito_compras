@@ -17,7 +17,7 @@
                     <div class="card-body" [formGroup]="Formregistrar">
                         <h3 class="card-title">DETALLE DEL CLIENTE</h3>
                         <div class="form-row">
-                            <div class="form-group col-md-10">
+                            <div class="form-group col-md-10 col-10">
                                 <label for="checkout-first-name">Documento de Identidad <strong>DNI</strong> <strong
                                         class="text-danger">(*)</strong></label>
                                 <input type="text" class="form-control" formControlName="dni_cliente"
@@ -29,7 +29,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group col-md-2">
+                            <div class="form-group col-md-2 col-2">
                                 <label for="checkout-first-name">Buscar </label>
                                 <button [class.btn-loading]="buscardni" (click)="BuscarDni()" [disabled]="cliente"
                                     class="btn btn-sm btn-success mt-1"><i class="fa fa-search"
@@ -37,7 +37,7 @@
                             </div>
                         </div>
                         <div class="form-row">
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-6 col-12">
                                 <label for="checkout-first-name">Nombre del Cliente<strong class="text-danger">
                                         (*)</strong></label>
                                 <input type="text" class="form-control" id="checkout-first-name"
@@ -49,7 +49,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-6 col-12">
                                 <label for="checkout-last-name">Apellidos del Cliente<strong class="text-danger">
                                         (*)</strong></label>
                                 <input type="text" class="form-control" id="checkout-last-name"

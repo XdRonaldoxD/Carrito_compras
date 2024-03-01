@@ -46,11 +46,11 @@
                 <tr>
                     <th>Availability</th>
                     <td *ngFor="let product of products">
-                        <span *ngIf="product.availability === 'in-stock'" class="compare-table__product-badge badge badge-success">In Stock</span>
+                        <span *ngIf="product.availability === 'in-stock'" class="compare-table__product-badge badge badge-success">Con Stock</span>
                     </td>
                 </tr>
                 <tr>
-                    <th>Price</th>
+                    <th>Precio</th>
                     <td *ngFor="let product of products">{{ product.price|currencyFormat }}</td>
                 </tr>
                 <tr>

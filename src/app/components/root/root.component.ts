@@ -6,6 +6,7 @@ import { ClienteLoginService } from 'src/app/shared/services/cliente-login.servi
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
+import { Title } from '@angular/platform-browser';
 
 interface RouterData {
     headerLayout?: 'classic' | 'compact';
@@ -27,7 +28,8 @@ export class RootComponent {
         private Login: ClienteLoginService,
         public route: ActivatedRoute,
         private renderer: Renderer2,
-        private toastr: ToastrService
+        private toastr: ToastrService,
+        private titleService: Title
     ) {
         this.route.data.subscribe((data: RouterData) => {
             this.headerLayout = data.headerLayout || 'classic';
@@ -38,6 +40,9 @@ export class RootComponent {
                 if (json.urlicono_empresa_venta_online) {
                     const linkElement: any = document.querySelector('link[rel="icon"]');
                     linkElement.setAttribute('href', json.urlicono_empresa_venta_online);
+                }
+                if (json.nombre_empresa_venta_online) {
+                    this.titleService.setTitle(json.nombre_empresa_venta_online);
                 }
                 //INICIALIZAMOS EL ICONO
                 json.pixelgoogle.forEach((element: any) => {

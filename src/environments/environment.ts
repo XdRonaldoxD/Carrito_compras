@@ -5,7 +5,7 @@
 export const environment = {
     production: false,
     key_token:'@TEXCOTTOMDESING2021LS~$',
-    apiredParts: 'http://localhost/MVC_CRM/?dominio=localhost'
+    apiredParts: 'http://localhost/MVC_CRM/?dominio=sistemaboticarosa'
 };
 
 /*
