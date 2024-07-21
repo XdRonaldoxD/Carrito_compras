@@ -2,6 +2,7 @@ import { Address } from './address';
 
 export interface Order {
     id: number;
+    num_order?: string;
     date: string;
     status: string;
     items: Array<{

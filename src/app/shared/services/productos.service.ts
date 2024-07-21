@@ -33,7 +33,7 @@ export class ProductosService {
     const headers = new HttpHeaders({
       Authorization: this.token
     });
-    return this.httpCliente.get(`${this.api}&Apicontroller=Producto&action=ProductosVendidoOferta&eloquent=${true}&limit=10`,{headers:headers});
+    return this.httpCliente.get(`${this.api}&Apicontroller=Producto&action=ProductosVendidoOferta&eloquent=${true}&limit=20`,{headers:headers});
   }
 
   MegaMenuProductos(): Observable<any> {

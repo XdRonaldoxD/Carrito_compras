@@ -11,7 +11,7 @@ export class LayoutComponent {
         {label: 'Editar perfil', url: './profile'},
         {label: 'Historial de pedidos', url: './orders'},
         // {label: 'Detalles del pedido', url: './orders/5'},
-        {label: 'Direcciones', url: './addresses'},
+        // {label: 'Direcciones', url: './addresses'},
         // {label: 'Editar dirección', url: './addresses/5'},
         {label: 'Contraseña', url: './password'},
         {label: 'Salir', url: './login'}

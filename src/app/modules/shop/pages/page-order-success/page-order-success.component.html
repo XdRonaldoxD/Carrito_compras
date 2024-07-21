@@ -75,10 +75,14 @@
                             <th class="order-list__column-label" colspan="3">Subtotal</th>
                             <td class="order-list__column-total">{{ order.subtotal|currencyFormat }}</td>
                         </tr>
-                        <tr *ngFor="let line of order.additionalLines">
+                        <tr>
+                            <th class="order-list__column-label" colspan="3">IGV</th>
+                            <td class="order-list__column-total">{{ order.igv|currencyFormat }}</td>
+                        </tr>
+                        <!-- <tr *ngFor="let line of order.additionalLines">
                             <th class="order-list__column-label" colspan="3">{{ line.label }}</th>
                             <td class="order-list__column-total">{{ line.total|currencyFormat }}</td>
-                        </tr>
+                        </tr> -->
                         </tbody>
                         <tfoot class="order-list__footer">
                         <tr>

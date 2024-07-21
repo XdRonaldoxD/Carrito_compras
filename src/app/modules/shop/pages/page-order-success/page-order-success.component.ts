@@ -19,7 +19,6 @@ export class PageOrderSuccessComponent implements OnDestroy{
     // order: any = [];
     Formregistrar: any;
     Unsuscribe: any = new Subject();
-
     constructor(
         public root: RootService,
         private router: Router,
@@ -30,7 +29,9 @@ export class PageOrderSuccessComponent implements OnDestroy{
 
     ) {
         this.order = this.api_cliente.TraerPedido();
+        console.log("order,",this.order);
         if (this.order) {
+            this.cart.delete();
             let items: any = [];
             let cantidad = 0;
             this.order.datos_detalle_pedido.forEach((element: any) => {
@@ -51,6 +52,7 @@ export class PageOrderSuccessComponent implements OnDestroy{
                 id: this.order.datos_pedido.numero_pedido,
                 date: this.order.datos_pedido.fechacreacion_pedido,
                 status: 'On hold',
+                igv:this.order.datos_pedido.iva_pedido,
                 items: items,
                 additionalLines: [
                     // {
@@ -88,79 +90,9 @@ export class PageOrderSuccessComponent implements OnDestroy{
                 //     address: 'Sun Orbit, 43.3241-85.239'
                 // },
             };
-        } else {
-            this.Formregistrar = this.cart.ObtenerClienteMercadoPago();
-            let total: any = this.cart.total$.source;
-            let subtotal: any = this.cart.subtotal$.source;
-            let igv: any = this.cart.totals$.source;
-            let totales_productos = {
-                subtotal: subtotal._value,
-                igv: igv._value[1].price,
-                total: total._value
-            };
-            let items: any = [];
-            this.api_cliente.EnviarDatosPedidosCliente(this.Formregistrar, null, this.cart.items, totales_productos, this.Formregistrar.metodo_pago).pipe(takeUntil(this.Unsuscribe)).subscribe({
-                next: (res: any) => {
-                    if (res.respuesta == "ok") {
-                        this.toastr.success(`Pedido realizado con exito.`, 'Exitoso ✔️', {
-                            timeOut: 5000,
-                        });
-                        let cantidad = 0;
-                        res.datos_detalle_pedido.forEach((element: any) => {
-                            cantidad += element.product.quantity;
-                            let item = {
-                                id: element.product.id,
-                                slug: element.product.slug,
-                                name: element.product.name,
-                                image: element.product.images[0],
-                                options: element.options,
-                                price: element.product.price,
-                                quantity: element.quantity,
-                                total: element.product.price * element.quantity,
-                            };
-                            items.push(item);
-                        });
-
-                        this.order = {
-                            id: res.datos_pedido.numero_pedido,
-                            date: res.datos_pedido.fechacreacion_pedido,
-                            status: 'On hold',
-                            items: items,
-                            additionalLines: [
-                                // {
-                                //     label: 'Store Credit',
-                                //     total: -20,
-                                // },
-                                {
-                                    label: 'Shipping',
-                                    total: 0,
-                                },
-                            ],
-                            quantity: cantidad,
-                            subtotal: res.datos_pedido.valorneto_pedido,
-                            total: res.datos_pedido.valortotal_pedido,
-                            paymentMethod: 'Tarjeta De Crédito',
-                            shippingAddress: {
-                                firstName: res.cliente.nombre_cliente,
-                                lastName: res.cliente.apellidopaterno_cliente + '' + res.cliente.apellidomaterno_cliente,
-                                email: res.cliente.e_mail_cliente,
-                                phone: res.cliente.celular_cliente,
-                                country: 'Perú',
-                                city: res.cliente.provincia,
-                                postcode: res.cliente.departamento,
-                                address: res.cliente.direccion_cliente,
-                            },
-                     
-                        };
-                    }
-
-                },
-                error: (error) => {
-                    this.toastr.error(`Imagen incorrecta subido.`, 'Imagen 🙁', {
-                        timeOut: 5000,
-                    });
-                }
-            })
+        
+        }else{
+            this.router.navigate(['/']);
         }
 
 

@@ -98,6 +98,18 @@ export class ClienteLoginService {
     return this.httpCliente.get(`${this.api}&Apicontroller=Cliente&action=TraerPedidoDetalle`, { headers: headers, params: Params });
   }
 
+  traerlimitePedidoCliente(id_cliente: any,limite:any=null): Observable<any> {
+    let Params = new HttpParams();
+    Params = Params.append('id_cliente', id_cliente);
+    if (limite) {
+      Params = Params.append('limit', limite);
+    }
+    const headers = new HttpHeaders({
+      Authorization: this.token
+    });
+    return this.httpCliente.get(`${this.api}&Apicontroller=Cliente&action=traerlimitePedidoCliente`, { headers: headers, params: Params });
+  }
+
   TraerDniApiCliente(Dni_cliente: number) {
     return this.httpCliente.get(`https://dniruc.apisperu.com/api/v1/dni/${Dni_cliente}?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InNtaXRoeGQxMThAZ21haWwuY29tIn0.24c7XETuRuTQLUqSjOH7BsKM19n6kKMOtY06qeUYX40`);
   }
@@ -155,7 +167,7 @@ export class ClienteLoginService {
 
   }
 
-  saveMensaje(mensaje: string) {
+  saveMensaje(mensaje: any) {
     let mensage: any = localStorage.getItem('mensaje_identificado');
     let mensaje_guardado: any;
     if (mensage) {
@@ -166,7 +178,6 @@ export class ClienteLoginService {
       mensaje_guardado.push(mensaje);
     }
     localStorage.setItem('mensaje_identificado', JSON.stringify(mensaje_guardado));
-
     return mensaje_guardado;
   }
 

@@ -162,7 +162,7 @@ $local-transition-duration: .25s;
     opacity: 0;
     transition: height $local-transition-duration ease-in-out, opacity $local-transition-duration ease-in-out;
     display: flex;
-    flex-direction: column;
+    flex-direction: column-reverse;
     max-height: 100%;
 
     &:before {
@@ -176,7 +176,7 @@ $local-transition-duration: .25s;
 .departments:not(.departments--fixed) {
     .departments__button {
         cursor: pointer;
-
+        background-color: #ff9c00;
         &:hover {
             .departments__button-icon,
             .departments__button-arrow {

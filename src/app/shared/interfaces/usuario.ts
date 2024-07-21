@@ -15,6 +15,6 @@ export interface usuario {
     idProvincia: number,
     idDepartamento: number,
     idDistrito:number,
-    id_cliente: number,
+    id_cliente: number | any,
     id_usuario: number,
 }

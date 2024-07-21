@@ -121,6 +121,7 @@
                                 <div *ngIf="Formregistrar.controls.e_mail_cliente|hasError:'email'">
                                     {{ 'Email Invalido' }}
                                 </div>
+                                <span *ngIf="Formregistrar.get('e_mail_cliente')?.hasError('correoEnUso') && Formregistrar.get('e_mail_cliente')?.touched">El correo electronico está en uso.</span>    
                             </div>
                         </div>
                         <div class="form-group">

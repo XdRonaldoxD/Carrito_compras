@@ -1,3 +1,52 @@
+
+<div class="site-footer">
+    <div class="container">
+        <div class="site-footer__widgets">
+            <div class="row">
+                <div class="col-12 col-md-12 col-lg-8">
+                    <app-footer-contacts></app-footer-contacts>
+                </div>
+                <!-- <div class="col-12 col-md-6 col-lg-3">
+                    <app-footer-links header="Información" [links]="[
+                        {label: 'Sobre Nosotros',             url: '/site/about-us'},
+                        {label: 'Información de entrega', url: '/site/terms'},
+                        {label: 'Política de privacidad',       url: '/site/terms'},
+                        {label: 'Brands',               url: ''},
+                        {label: 'Contactanos',           url: '/site/contact-us'},
+                        {label: 'Returns',              url: ''},
+                        {label: 'Site Map',             url: ''}
+                    ]"></app-footer-links>
+                </div> -->
+                <!-- <div class="col-6 col-md-3 col-lg-2">
+                    <app-footer-links header="Mi cuenta" [links]="[
+                        {label: 'Store Location', url: ''},
+                        {label: 'Historial de pedidos',  url: ''},
+                        {label: 'Wish List',      url: '/shop/wishlist'},
+                        {label: 'Newsletter',     url: ''},
+                        {label: 'Specials',       url: ''},
+                        {label: 'Gift Cards',     url: ''},
+                        {label: 'Affiliate',      url: ''}
+                    ]"></app-footer-links>
+                </div> -->
+                <div class="col-12 col-md-12 col-lg-4">
+                    <app-footer-newsletter class="site-footer__widget"></app-footer-newsletter>
+                </div>
+            </div>
+        </div>
+
+        <!-- <div class="site-footer__bottom">
+            <div class="site-footer__copyright">
+                Powered by <a href="https://angular.io/" target="_blank">Angular</a> — Design by <a [href]="theme.author.profile_url" target="_blank">{{ theme.author.name }}</a>
+            </div>
+            <div class="site-footer__payments">
+                <img src="assets/images/payments.png" alt="">
+            </div>
+        </div> -->
+    </div>
+    <app-totop></app-totop>
+</div>
+
+<!-- CHAT BOX FLOTANTE -->
 <div class="container container-footer">
     <div class="row">
         <div id="Smallchat">
@@ -6,27 +55,29 @@
                 <div class="Messenger_messenger">
                     <div class="Messenger_header" style="background-color: rgb(22, 46, 98); color: rgb(255, 255, 255);">
                         <h4 class="Messenger_prompt">En que te puedo ayudar?</h4>
-                        <span class="chat_dismi_icon">
+                        <span class="chat_dismi_icon" (click)="MinimisarConversacion()">
                             <i class="fas fa-angle-double-down" aria-hidden="true"></i></span>
-                        <span (click)="CerrarConversacion()" class="chat_close_icon">
+                        <span (click)="cerrarChatBox()" class="chat_close_icon">
                             <i class="fa fa-window-close" aria-hidden="true"></i></span>
                     </div>
-                    <div class="Messenger_content d-none formwebsocket">
-                        <div class="Messages" >
-                                <div class="wc-message-groups" id="Messages" >
-                                    <div class="wc-message-group-content Messages_list"  style="margin-top: 0px;">
- 
+                    <div class="Messenger_content  formwebsocket">
+                        <div class="Messages">
+                            <div class="wc-message-groups" id="Messages">
+                                <div class="wc-message-group-content Messages_list" style="margin-top: 0px;">
+                                    <div class="wc-message-wrapper list">
+
                                     </div>
                                 </div>
+                            </div>
                         </div>
                         <div class="Input Input-blank" [formGroup]="formwebsocket">
                             <textarea [placeholder]="'Enviar un mensaje...' " formControlName="mensaje"
-                                [class.is-invalid]="formwebsocket.controls.mensaje|isInvalid" class="Input_field" (keydown)="EnviandoMensaje($event)"
-                                style="height: 20px;"></textarea>
-                       
+                                [class.is-invalid]="formwebsocket.controls.mensaje|isInvalid" class="Input_field"
+                                (keydown)="EnviandoChatGPT($event)" style="height: 20px;"></textarea>
+
                             <ng-container *ngIf="!enviar_mensaje; else elseTemplate">
                                 <button class="Input_button Input_button-send" type="button"
-                                    (click)="EnviandoMensaje('true')">
+                                    (click)="EnviandoChatGPT('true')">
                                     <div class="Icon" style="width: 18px; height: 18px;">
                                         <svg width="57px" height="54px" viewBox="1496 193 57 54" version="1.1"
                                             xmlns="http://www.w3.org/2000/svg"
@@ -65,7 +116,7 @@
                             </ng-template>
                         </div>
                     </div>
-                    <div class="Messenger_content row mt-1 formdatoscliente" [formGroup]="formdatoscliente">
+                    <div class="Messenger_content d-none  row mt-1 formdatoscliente" [formGroup]="formdatoscliente">
                         <div class="form-group">
                             <div class="col-lg-12 col-12">
                                 <label class="text-black">Nombre <strong class="text-danger">(*)</strong></label>
@@ -114,61 +165,16 @@
                 </div>
             </div>
             <!--===============CHAT ON BUTTON STRART===============-->
-            <div class="chat_on"> <span class="chat_on_icon"><i class="fa fa-comments" aria-hidden="true"></i></span>
+            <div (click)="LevantarChat()" class="chat_on"> <span class="chat_on_icon"><i class="fa fa-comments"
+                        aria-hidden="true"></i></span>
             </div>
             <!--===============CHAT ON BUTTON END===============-->
         </div>
     </div>
 </div>
-
-
-
-
-
-
-<div class="site-footer">
-    <div class="container">
-        <div class="site-footer__widgets">
-            <div class="row">
-                <div class="col-12 col-md-12 col-lg-8">
-                    <app-footer-contacts></app-footer-contacts>
-                </div>
-                <!-- <div class="col-12 col-md-6 col-lg-3">
-                    <app-footer-links header="Información" [links]="[
-                        {label: 'Sobre Nosotros',             url: '/site/about-us'},
-                        {label: 'Información de entrega', url: '/site/terms'},
-                        {label: 'Política de privacidad',       url: '/site/terms'},
-                        {label: 'Brands',               url: ''},
-                        {label: 'Contactanos',           url: '/site/contact-us'},
-                        {label: 'Returns',              url: ''},
-                        {label: 'Site Map',             url: ''}
-                    ]"></app-footer-links>
-                </div> -->
-                <!-- <div class="col-6 col-md-3 col-lg-2">
-                    <app-footer-links header="Mi cuenta" [links]="[
-                        {label: 'Store Location', url: ''},
-                        {label: 'Historial de pedidos',  url: ''},
-                        {label: 'Wish List',      url: '/shop/wishlist'},
-                        {label: 'Newsletter',     url: ''},
-                        {label: 'Specials',       url: ''},
-                        {label: 'Gift Cards',     url: ''},
-                        {label: 'Affiliate',      url: ''}
-                    ]"></app-footer-links>
-                </div> -->
-                <div class="col-12 col-md-12 col-lg-4">
-                    <app-footer-newsletter class="site-footer__widget"></app-footer-newsletter>
-                </div>
-            </div>
-        </div>
-
-        <!-- <div class="site-footer__bottom">
-            <div class="site-footer__copyright">
-                Powered by <a href="https://angular.io/" target="_blank">Angular</a> — Design by <a [href]="theme.author.profile_url" target="_blank">{{ theme.author.name }}</a>
-            </div>
-            <div class="site-footer__payments">
-                <img src="assets/images/payments.png" alt="">
-            </div>
-        </div> -->
-    </div>
-    <app-totop></app-totop>
+<!-- --------------------------------- -->
+<!-- TEXTO FLOTANTE -->
+<div class="texto_flotante" (click)="LevantarChat()">
+    ¿TE AYUDO?
 </div>
+<!-- ----------- -->

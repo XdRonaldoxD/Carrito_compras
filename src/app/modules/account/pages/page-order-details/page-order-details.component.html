@@ -3,7 +3,7 @@
         <div class="order-header__actions">
             <a routerLink="/account/orders" class="btn btn-xs btn-secondary">Volver a la lista</a>
         </div>
-        <h5 class="order-header__title">Orden #{{ order.id }}</h5>
+        <h5 class="order-header__title">Orden N°{{ order.num_order }}</h5>
         <div class="order-header__subtitle">
             Se colocó el  <mark class="order-header__date">{{ order.date }}</mark>
             y actualmente está en <mark class="order-header__status">{{ order.status }}</mark>.
@@ -50,7 +50,7 @@
     <div class="col-sm-6 col-12 px-2">
         <div class="card address-card address-card--featured">
             <div class="address-card__body">
-                <div class="address-card__badge address-card__badge--muted">Dirección de envío</div>
+                <div class="address-card__badge address-card__badge--muted">Dirección</div>
                 <div class="address-card__name">{{ order.shippingAddress.firstName + ' ' + order.shippingAddress.lastName}}</div>
                 <div class="address-card__row">
                     {{ order.shippingAddress.country }}<br>

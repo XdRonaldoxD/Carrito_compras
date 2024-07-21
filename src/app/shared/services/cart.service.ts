@@ -194,6 +194,7 @@ export class CartService {
         this.totalSubject$.next(this.data.total);
     }
 
+    
     private save(): void {
         localStorage.setItem('cartItems', JSON.stringify(this.data.items));
     }
@@ -212,5 +213,13 @@ export class CartService {
         if (items) {
             this.data.items = JSON.parse(items);
         }
+    }
+
+    public delete(): void {
+        localStorage.removeItem("cartItems");
+        localStorage.removeItem('pedidos_datos');
+        this.data.items = [];
+        this.save();
+        this.calc();
     }
 }

@@ -10,7 +10,6 @@ import { Location } from '@angular/common';
 import { parseProductsListParams } from '../../resolvers/products-list-resolver.service';
 import { ShopService } from '../../../../shared/api/shop.service';
 import { parseFilterValue } from '../../../../shared/helpers/filter';
-import { Category } from '../../../../shared/interfaces/category';
 
 @Component({
     selector: 'app-grid',
@@ -24,7 +23,7 @@ import { Category } from '../../../../shared/interfaces/category';
 export class PageCategoryComponent implements OnDestroy {
     destroy$: Subject<void> = new Subject<void>();
 
-    columns: 3|4|5 = 3;
+    columns: 3|4|5 = 4;
     viewMode: 'grid'|'grid-with-features'|'list' = 'grid';
     sidebarPosition: 'start'|'end' = 'start'; // For LTR scripts "start" is "left" and "end" is "right"
     breadcrumbs: Link[] = [];
@@ -42,11 +41,10 @@ export class PageCategoryComponent implements OnDestroy {
         this.route.data.subscribe(data => {
             //TRAER DATA DEL RESOLVER
             this.items_productos=data.products.items;
-            console.log("page categoria producto items",this.items_productos);
             //
             this.breadcrumbs = [
-                {label: 'Home', url: this.root.home()},
-                {label: 'Shop', url: this.root.shop()},
+                {label: 'Casa', url: this.root.home()},
+                {label: 'Tienda', url: this.root.shop()},
             ];
 
             // If categorySlug is undefined then this is a root catalog page.

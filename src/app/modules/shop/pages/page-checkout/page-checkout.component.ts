@@ -1,11 +1,11 @@
 import { Component, OnDestroy, OnInit, ViewChild, ElementRef, TemplateRef } from '@angular/core';
 import { CartService } from '../../../../shared/services/cart.service';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { takeUntil, finalize } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RootService } from '../../../../shared/services/root.service';
 import { ClienteLoginService } from '../../../../shared/services/cliente-login.service';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { mustMatchValidator } from '../../../../functions/validators/must-match';
 import { ToastrService } from 'ngx-toastr';
 import { BsModalService, BsModalRef, ModalOptions } from 'ngx-bootstrap/modal';
@@ -64,7 +64,7 @@ export class PageCheckoutComponent implements OnInit, OnDestroy {
         this.Formregistrar = this.fb.group({
             nombre_cliente: [this.cliente?.nombre_cliente, [Validators.required]],
             apellidos_cliente: [apellidos_cliente, [Validators.required]],
-            e_mail_cliente: [this.cliente?.e_mail_cliente, [Validators.required, Validators.email]],
+            e_mail_cliente: [this.cliente?.e_mail_cliente, [Validators.required, Validators.email],this.CorreoUsuarioEnUso.bind(this)],
             telefono_cliente: [this.cliente?.telefono_cliente],
             crearcuenta: [false],
             idDepartamento: [(this.cliente?.idDepartamento) ? this.cliente?.idDepartamento : '', [Validators.required]],
@@ -116,6 +116,27 @@ export class PageCheckoutComponent implements OnInit, OnDestroy {
             }
         })
     }
+
+
+    CorreoUsuarioEnUso(control: AbstractControl): Promise<any> | Observable<any> {
+        const response = new Promise((resolve, reject) => {
+          this.api_cliente.correoUsuarioEnUso(control.value)
+            .pipe(takeUntil(this.destroy$))
+            .subscribe({
+              next: (resp) => {
+                if (resp) {
+                  resolve({ correoEnUso: true });
+                } else {
+                  resolve(null);
+                }
+              },
+              error: () => {
+                resolve({ correoEnUso: true });
+              },
+            });
+        });
+        return response;
+      }
 
 
 

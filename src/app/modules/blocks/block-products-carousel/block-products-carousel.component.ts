@@ -44,7 +44,7 @@ export class BlockProductsCarouselComponent implements OnChanges, AfterViewInit 
         dots: false,
         loop: true,
         stagePadding: 1,
-        autoplay: true,
+        autoplay: false,
         autoplayTimeout: 5000,
         rtl: this.direction.isRTL()
     };
@@ -56,7 +56,7 @@ export class BlockProductsCarouselComponent implements OnChanges, AfterViewInit 
                 930:  {items: 4, margin: 10},
                 690:  {items: 3, margin: 10},
                 400:  {items: 2, margin: 10},
-                0:    {items: 1}
+                0:    {items: 2, margin: 10} 
             }
         },
         'grid-4-sm': {
@@ -64,7 +64,7 @@ export class BlockProductsCarouselComponent implements OnChanges, AfterViewInit 
                 820: {items: 4, margin: 14},
                 640: {items: 3, margin: 10},
                 400: {items: 2, margin: 10},
-                0:   {items: 1}
+                0:    {items: 2, margin: 10} 
             }
         },
         'grid-5': {
@@ -73,7 +73,7 @@ export class BlockProductsCarouselComponent implements OnChanges, AfterViewInit 
                 930:  {items: 4, margin: 10},
                 690:  {items: 3, margin: 10},
                 400:  {items: 2, margin: 10},
-                0:    {items: 1}
+                0:    {items: 2, margin: 10} 
             }
         },
         horizontal: {
@@ -82,7 +82,7 @@ export class BlockProductsCarouselComponent implements OnChanges, AfterViewInit 
                 1110: {items: 3, margin: 14},
                 930:  {items: 3, margin: 10},
                 690:  {items: 2, margin: 10},
-                0:    {items: 1}
+                0:    {items: 2, margin: 10} 
             }
         }
     };

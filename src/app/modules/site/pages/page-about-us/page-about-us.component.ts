@@ -13,7 +13,7 @@ export class PageAboutUsComponent {
         responsive: {
             580: {items: 3, margin: 32},
             280: {items: 2, margin: 24},
-            0: {items: 1}
+            0: {items: 2}
         },
         rtl: this.direction.isRTL()
     };

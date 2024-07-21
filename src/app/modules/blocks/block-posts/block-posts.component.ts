@@ -31,13 +31,13 @@ export class BlockPostsComponent implements AfterViewInit {
             responsive: {
                 930: {items: 3},
                 690: {items: 2},
-                0: {items: 1}
+                0: {items: 2}
             }
         },
         'list-sm': {
             responsive: {
                 930: {items: 2},
-                0: {items: 1}
+                0: {items: 2}
             }
         }
     };
