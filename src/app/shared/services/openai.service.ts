@@ -7,7 +7,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class OpenaiService {
-  private apiKey: string = environment.apiKeyGPT;
+  private apiKey: string = environment.apiGPT;
   private apiUrl: string = 'https://api.openai.com/v1/chat/';
 
   constructor(private http: HttpClient) { }
