@@ -2,11 +2,12 @@
 // `ng build` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
+import API_KEY_GPT from "src/env";
 export const environment = {
   production: false,
   key_token:'@TEXCOTTOMDESING2021LS~$',
   apiredParts: 'https://api.sistemaboticarosa.com/?dominio=sistemaboticarosa',
-  apiGPT:""
+  apiGPT:API_KEY_GPT
 };
 
 
