@@ -5,7 +5,7 @@
 /tmp
 /out-tsc
 #Variable Entorno
-/src/env.ts
+env.ts
 # Only exists if Bazel was run
 /bazel-out
 
