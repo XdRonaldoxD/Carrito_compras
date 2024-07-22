@@ -1,5 +1,5 @@
 export const environment = {
-  production: false,
+  production: true,
   key_token:'@TEXCOTTOMDESING2021LS~$',
   apiredParts: 'https://api.sistemaboticarosa.com/?dominio=sistemaboticarosa',
   apiGPT:''
