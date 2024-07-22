@@ -9,8 +9,6 @@ export const environment = {
   apiredParts: 'https://api.sistemaboticarosa.com/?dominio=sistemaboticarosa',
   apiGPT:API_KEY_GPT
 };
-
-
 /*
  * For easier debugging in development mode, you can import the following file
  * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.
